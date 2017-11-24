@@ -1,0 +1,54 @@
+@model ToyForSI.Models.DepartmentAttributes
+@using ToyForSI.Models.Enum;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>DepartmentAttributes</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="departmentAttributeName" class="control-label"></label>
+                <input asp-for="departmentAttributeName" class="form-control" />
+                <span asp-validation-for="departmentAttributeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="departmentAttributeType" class="control-label"></label>
+                <select asp-for="departmentAttributeType" asp-items="Html.GetEnumSelectList<ToyForSI.Models.Enum.ValueType>()" class="form-control"></select>
+                <span asp-validation-for="departmentAttributeType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="valueLength" class="control-label"></label>
+                <input asp-for="valueLength" class="form-control" />
+                <span asp-validation-for="valueLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isRequired" class="control-label"></label>
+                <select asp-for="isRequired" asp-items="Html.GetEnumSelectList<ToyForSI.Models.Enum.Bool>()" class="form-control"></select>
+                <span asp-validation-for="isRequired" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="valueRegEx" class="control-label"></label>
+                <input asp-for="valueRegEx" class="form-control" />
+                <span asp-validation-for="valueRegEx" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

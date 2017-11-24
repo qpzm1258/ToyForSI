@@ -1,0 +1,48 @@
+@model ToyForSI.Models.DepartmentAttributes
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DepartmentAttributes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.departmentAttributeName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.departmentAttributeName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.departmentAttributeType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.departmentAttributeType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.valueLength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.valueLength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.isRequired)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.isRequired)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.valueRegEx)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.valueRegEx)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.departmentAttributeId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
