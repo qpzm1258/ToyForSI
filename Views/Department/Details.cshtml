@@ -4,10 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>详细信息</h2>
 
 <div>
-    <h4>Department</h4>
+    <h4>科室</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -16,9 +16,22 @@
         <dd>
             @Html.DisplayFor(model => model.departmentName)
         </dd>
+        <hr />
+        @{
+
+            foreach (var attr in ViewBag.DepartmentValue)
+            {
+                @:<dt>   
+                    @attr.aName
+                @:</dt>
+                @:<dd>
+                    @attr.value
+                @:</dd>
+            }
+        }
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.departmentId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.departmentId">编辑</a> |
+    <a asp-action="Index">返回科室列表</a>
 </div>

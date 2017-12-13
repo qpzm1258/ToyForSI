@@ -34,8 +34,15 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="User" asp-action="Index">用户管理</a></li>
-                    <li><a asp-area="" asp-controller="Department" asp-action="Index">部门管理</a></li>
-                    <li><a asp-area="" asp-controller="DepartmentAttributes" asp-action="Index">部门属性管理</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            科室管理 <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Department" asp-action="Index">科室管理</a></li>
+                            <li><a asp-area="" asp-controller="DepartmentAttributes" asp-action="Index">科室属性管理</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
