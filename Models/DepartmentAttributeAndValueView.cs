@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ToyForSI.Models
+﻿namespace ToyForSI.Models
 {
     public class DepartmentAttributeAndValueView
     {

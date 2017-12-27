@@ -1,0 +1,39 @@
+@model ToyForSI.Models.DevModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DevModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.devModelName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.devModelName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.brand)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.brand.brandName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.equipmentType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.equipmentType.equipmentTypeName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="devModelId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -30,9 +30,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <!-- 
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li> 
+                    -->
                     <li><a asp-area="" asp-controller="User" asp-action="Index">用户管理</a></li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -41,6 +43,26 @@
                         <ul class="dropdown-menu">
                             <li><a asp-area="" asp-controller="Department" asp-action="Index">科室管理</a></li>
                             <li><a asp-area="" asp-controller="DepartmentAttributes" asp-action="Index">科室属性管理</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            人员管理 <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Position" asp-action="Index">职位管理</a></li>
+                            <li><a asp-area="" asp-controller="Member" asp-action="Index">人员管理</a></li>
+                        </ul>
+                    </li>
+                     <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            设备管理 <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Brand" asp-action="Index">品牌管理</a></li>
+                            <li><a asp-area="" asp-controller="EquipmentType" asp-action="Index">设备类型管理</a></li>
+                            <li><a asp-area="" asp-controller="DevModel" asp-action="Index">型号管理</a></li>
+                            <li><a asp-area="" asp-controller="Device" asp-action="Index">设备管理</a></li>
                         </ul>
                     </li>
                 </ul>

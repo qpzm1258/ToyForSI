@@ -1,0 +1,59 @@
+@model IEnumerable<ToyForSI.Models.Device>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">新增设备</a>
+</p>
+<table class="rwd-table table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.contractNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.inWareHouse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.devModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.siSN)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td data-th=" @Html.DisplayNameFor(model => model.contractNo)">
+                @Html.DisplayFor(modelItem => item.contractNo)
+            </td>
+            <td data-th="@Html.DisplayNameFor(model => model.createTime)">
+                @Html.DisplayFor(modelItem => item.createTime)
+            </td>
+            <td data-th="@Html.DisplayNameFor(model => model.inWareHouse)">
+                @Html.DisplayFor(modelItem => item.inWareHouse)
+            </td>
+            <td data-th="@Html.DisplayNameFor(model => model.devModel)">
+                @Html.DisplayFor(modelItem => item.devModel.devModelName)
+            </td>
+            <td data-th="@Html.DisplayNameFor(model => model.siSN)">
+                @Html.DisplayFor(modelItem => item.siSN)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.deviceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.deviceId">详细</a> |
+                <a asp-action="Delete" asp-route-id="@item.deviceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

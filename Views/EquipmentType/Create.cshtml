@@ -1,0 +1,38 @@
+@model ToyForSI.Models.EquipmentType
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>EquipmentType</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="equipmentTypeName" class="control-label"></label>
+                <input asp-for="equipmentTypeName" class="form-control" />
+                <span asp-validation-for="equipmentTypeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="equipmentTypeRemarks" class="control-label"></label>
+                <input asp-for="equipmentTypeRemarks" class="form-control" />
+                <span asp-validation-for="equipmentTypeRemarks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

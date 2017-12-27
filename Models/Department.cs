@@ -15,5 +15,21 @@ namespace ToyForSI.Models
         public string departmentName {get;set;}
 
         public ICollection<DepartmentValue> departmentValues{get;set;}
+        public ICollection<Member> members { get; set; }
+
+        public int memberCount
+        {
+            get
+            {
+                if(members!=null)
+                {
+                    return members.Count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
     }
 }

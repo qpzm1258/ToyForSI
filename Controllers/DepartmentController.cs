@@ -26,7 +26,7 @@ namespace ToyForSI.Controllers
         public async Task<IActionResult> Index()
         {
             step=ActionStep.index;
-            return View(await _context.Department.ToListAsync());
+            return View(await _context.Department.Include(m=>m.members).ToListAsync());
         }
 
         // GET: Department/Details/5
@@ -261,6 +261,11 @@ namespace ToyForSI.Controllers
             }
             _context.SaveChanges();
             return 0;
+        }
+
+        public int GetMemberCount(int departmentid)
+        {
+            return _context.Member.Count(m=>m.departmentId==departmentid);
         }
     }
 }

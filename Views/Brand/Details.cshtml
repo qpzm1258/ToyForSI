@@ -1,0 +1,48 @@
+@model ToyForSI.Models.Brand
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Brand</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.brandName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.brandName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.brandUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.brandUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.brandServiceHotLine)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.brandServiceHotLine)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.brandEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.brandEmail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.brandLogo)
+        </dt>
+        <dd>
+             <img src="@Html.DisplayFor(model => model.brandLogo)"  style="height:30px;">
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.brandId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

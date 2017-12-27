@@ -1,0 +1,71 @@
+@model IEnumerable<ToyForSI.Models.Member>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sex)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.employeeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDCard)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.createTime)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.position)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDCard)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.department.departmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.position.positionName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.memberId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.memberId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.memberId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

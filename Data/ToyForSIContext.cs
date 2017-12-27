@@ -19,5 +19,11 @@ namespace ToyForSI.Data
         public DbSet<ToyForSI.Models.Department> Department { get; set; }
         public DbSet<ToyForSI.Models.DepartmentAttributes> DepartmentAttributes { get; set; }
         public DbSet<ToyForSI.Models.DepartmentValue> DepartmentValue { get; set; }
+        public DbSet<ToyForSI.Models.Position> Position { get; set; }
+        public DbSet<ToyForSI.Models.Member> Member { get; set; }
+        public DbSet<ToyForSI.Models.Brand> Brand { get; set; }
+        public DbSet<ToyForSI.Models.EquipmentType> EquipmentType { get; set; }
+        public DbSet<ToyForSI.Models.DevModel> DevModel { get; set; }
+        public DbSet<ToyForSI.Models.Device> Device { get; set; }
     }
 }
