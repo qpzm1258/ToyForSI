@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.IO;
 using ZXing.QrCode;
+using System.Text;
 
 namespace ToyForSI.TagHelpers
 {
@@ -12,8 +13,8 @@ namespace ToyForSI.TagHelpers
         {
             var QrcodeContent = context.AllAttributes["content"].Value.ToString();
             var alt = context.AllAttributes["alt"].Value.ToString();
-            var width = 250; // width of the Qr Code   
-            var height = 250; // height of the Qr Code   
+            var width = 150; // width of the Qr Code   
+            var height = 150; // height of the Qr Code   
             var margin = 0;
             var qrCodeWriter = new ZXing.BarcodeWriterPixelData
             {
@@ -26,7 +27,9 @@ namespace ToyForSI.TagHelpers
                     CharacterSet= "UTF-8"
                 }
             };
-            var pixelData = qrCodeWriter.Write(QrcodeContent);
+            byte[] bytes = Encoding.Default.GetBytes(QrcodeContent);
+            string QrcodeContentUTF8 = Encoding.UTF8.GetString(bytes);
+            var pixelData = qrCodeWriter.Write(QrcodeContentUTF8);
             // creating a bitmap from the raw pixel data; if only black and white colors are used it makes no difference   
             // that the pixel data ist BGRA oriented and the bitmap is initialized with RGB   
             using (var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
