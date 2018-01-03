@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ToyForSI.Data;
 using ToyForSI.Models;
 using System;
+using System.Collections.Generic;
 
 namespace ToyForSI.Controllers
 {
@@ -34,8 +35,15 @@ namespace ToyForSI.Controllers
             }
 
             var device = await _context.Device
-                .Include(d => d.devModel)
+                .Include(d => d.devModel).ThenInclude(m=>m.brand)
+                .Include(d => d.devModel).ThenInclude(m=>m.equipmentType)
+                .Include(d=>d.historys).ThenInclude(c => c.formdepartment)
+                .Include(d=>d.historys).ThenInclude(c => c.toDepartment)
+                .Include(d=>d.historys).ThenInclude(c => c.fromMember)
+                .Include(d=>d.historys).ThenInclude(c => c.toMember)
                 .SingleOrDefaultAsync(m => m.deviceId == id);
+                //device.historys.OrderByDescending(h=>h.deviceFlowHistoryId);
+                device.historys=device.historys.OrderByDescending(h=>h.deviceFlowHistoryId).ToList();
             if (device == null)
             {
                 return NotFound();
@@ -48,6 +56,7 @@ namespace ToyForSI.Controllers
         public IActionResult Create()
         {
             ViewData["devModelId"] = new SelectList(_context.DevModel, "devModelId", "devModelName");
+            ViewData["createTime"] = DateTime.Now;
             return View();
         }
 
@@ -56,22 +65,36 @@ namespace ToyForSI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("deviceId,contractNo,devModelId,createTime,inWareHouse,devCount")] MultiDev multidev)
+        public async Task<IActionResult> Create([Bind("deviceId,contractNo,devModelId,createTime,inWareHouse,devCount,toLocation")] MultiDev multidev)
         {
             if (ModelState.IsValid)
             {
+                //List<Device> devices=new List<Device>();
                 for (int idx = 0; idx != multidev.devCount; idx++)
                 {
                     DevModel devModel = _context.DevModel.FirstOrDefault(d => d.devModelId == multidev.devModelId);
+                    DeviceFlowHistory history = new DeviceFlowHistory { toLocation = multidev.toLocation,  flowDateTime = multidev.createTime, deviceStatus=ToyForSI.Models.Enum.DeviceStatus.Warehouse };
+                    List<DeviceFlowHistory> h = new List<DeviceFlowHistory>
+                    {
+                        history
+                    };
                     Device device = 
                         new Device { contractNo = multidev.contractNo,
                             devModelId = multidev.devModelId,
                             createTime = multidev.createTime,
                             inWareHouse = multidev.inWareHouse,
+                            historys=h
                         };
                     _context.Add(device);
                 }
                 await _context.SaveChangesAsync();
+                //foreach (Device d in devices)
+                //{
+                //    DeviceFlowHistory history = new DeviceFlowHistory { toLocation = multidev.toLocation, deviceId = d.deviceId, transferDateTime = DateTime.Now };
+                //    _context.Add(history);
+                //}
+                //await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["devModelId"] = new SelectList(_context.DevModel, "devModelId", "devModelName", multidev.devModelId);

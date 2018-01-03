@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using ToyForSI.Models.Enum;
+using System.Collections.Generic;
 
 namespace ToyForSI.Models
 {
@@ -39,5 +40,6 @@ namespace ToyForSI.Models
         }
         [Display(Name ="是否在库")]
         public ToyForSI.Models.Enum.Bool inWareHouse { get; set; }
+        public List<DeviceFlowHistory> historys{get;set;}
     }
 }

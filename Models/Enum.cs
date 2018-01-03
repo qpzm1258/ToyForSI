@@ -32,4 +32,17 @@ namespace ToyForSI.Models.Enum
         [Display(Name="未知性别")]
         Unknow=2
     };
+
+    public enum DeviceStatus
+    {
+        [Display(Name="在库")]
+        Warehouse=0,
+        [Display(Name="正常使用")]
+        Normal=1,
+        [Display(Name="维修")]
+        Fix=2,
+        [Display(Name="报废")]
+        Scrapped=3
+    };
+
 }

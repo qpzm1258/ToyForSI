@@ -25,5 +25,6 @@ namespace ToyForSI.Data
         public DbSet<ToyForSI.Models.EquipmentType> EquipmentType { get; set; }
         public DbSet<ToyForSI.Models.DevModel> DevModel { get; set; }
         public DbSet<ToyForSI.Models.Device> Device { get; set; }
+        public DbSet<ToyForSI.Models.DeviceFlowHistory> DeviceFlowHistory { get; set; }
     }
 }

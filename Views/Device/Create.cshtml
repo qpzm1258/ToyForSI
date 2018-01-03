@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="createTime" class="control-label"></label>
-                <input asp-for="createTime" class="form-control" value="@DateTime.Now.ToString()"/>
+                <input asp-for="createTime" class="form-control"/>
                 <span asp-validation-for="createTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,6 +35,14 @@
                 <label asp-for="devCount" class="control-label"></label>
                 <input asp-for="devCount" class="form-control" />
                 <span asp-validation-for="devCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="toLocation" class="control-label">库房</label>
+                <select asp-for="toLocation" class="form-control">
+                    <option value="库房218">库房218</option>
+                    <option value="库房213">库房213</option>
+                </select>
+                <span asp-validation-for="toLocation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="新增" class="btn btn-default" />

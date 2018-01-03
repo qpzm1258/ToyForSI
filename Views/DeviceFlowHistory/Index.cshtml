@@ -1,0 +1,83 @@
+@model IEnumerable<ToyForSI.Models.DeviceFlowHistory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.fromLocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.toLocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.flowDateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.deviceStatus)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.device)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.formdepartment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fromMember)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.toDepartment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.toMember)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fromLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.toLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.flowDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.deviceStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.device.contractNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.formdepartment.departmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fromMember.employeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.toDepartment.departmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.toMember.employeeId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.deviceFlowHistoryId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.deviceFlowHistoryId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.deviceFlowHistoryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

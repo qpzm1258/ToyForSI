@@ -7,7 +7,7 @@
 <h2>详细</h2>
 
 <div>
-    <h4>设备</h4>
+    <h4>设备详细</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,16 +17,16 @@
             @Html.DisplayFor(model => model.contractNo)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.createTime)
+            @Html.DisplayNameFor(model => model.devModel.brand.brandName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.createTime)
+            @Html.DisplayFor(model => model.devModel.brand.brandName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.inWareHouse)
+            @Html.DisplayNameFor(model => model.devModel.equipmentType.equipmentTypeName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.inWareHouse)
+            @Html.DisplayFor(model => model.devModel.equipmentType.equipmentTypeName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.devModel)
@@ -38,15 +38,72 @@
             @Html.DisplayNameFor(model => model.siSN)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.siSN)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.siSN)
-        </dt>
-        <dd>
             <qrcode alt="QR Code" content="@ViewData["SiSN"]"/>
         </dd>
     </dl>
+    <h4>设备转移历史</h4>
+    <hr />
+    <table class="rwd-table table">
+    <thead>
+        <tr>
+            <th>
+                从（地点）
+            </th>
+            <th>
+                到（地点）
+            </th>
+            <th>
+               从（科室）
+            </th>
+            <th>
+               到（科室）
+            </th>
+            <th>
+                从（使用者）
+            </th>
+            <th>
+               到（使用者）
+            </th>
+            <th>
+                设备状态
+            </th>
+            <th>
+                转移时间
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.historys) {
+        <tr>
+            <td data-th="从（地点）">
+                @Html.DisplayFor(modelItem => item.fromLocation)
+            </td>
+            <td data-th="到（地点）">
+                @Html.DisplayFor(modelItem => item.toLocation)
+            </td>
+            <td data-th="从（科室）">
+                @Html.DisplayFor(modelItem => item.formdepartment.departmentName)
+            </td>
+            <td data-th="到（科室）">
+                @Html.DisplayFor(modelItem => item.toDepartment.departmentName)
+            </td>
+            <td data-th="从（使用者）">
+                @Html.DisplayFor(modelItem => item.fromMember.name)
+            </td>
+            <td data-th="到（使用者）">
+                @Html.DisplayFor(modelItem => item.toMember.name)
+            </td>
+            <td data-th="设备状态">
+                @Html.DisplayFor(modelItem => item.deviceStatus)
+            </td>
+            <td data-th="流转时间">
+                @Html.DisplayFor(modelItem => item.flowDateTime)
+            </td>
+        </tr>
+}
+    </tbody>
+    </table>
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.deviceId">Edit</a> |

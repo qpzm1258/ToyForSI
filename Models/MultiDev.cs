@@ -11,5 +11,6 @@ namespace ToyForSI.Models
         [Required(ErrorMessage ="请正确输入数量")]
         [RegularExpression(@"[0-9]+$",ErrorMessage = "请正确输入数量")]
         public int devCount { get; set; }
+        public string toLocation{get;set;}
     }
 }

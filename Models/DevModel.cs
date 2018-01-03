@@ -15,10 +15,12 @@ namespace ToyForSI.Models
         [Display(Name="品牌")]
         public Brand brand{get;set;}
         [Display(Name="品牌")]
+        [Required(ErrorMessage="品牌不能为空")]
         public int? brandId{get;set;}
         [Display(Name="设备类型")]
         public EquipmentType equipmentType{get;set;}
         [Display(Name="设备类型")]
+        [Required(ErrorMessage="设备类型不能为空")]
         public int? equipmentTypeId{get;set;}
 
         public ICollection<Device> devices{get;set;}

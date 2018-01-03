@@ -254,9 +254,11 @@ namespace ToyForSI.Controllers
             var novalue = _context.DepartmentAttributes.Where(n =>! _context.DepartmentValue.Where(m=>m.departmentId==departmentid).Select(m => m.departmentAttributeId).Contains(n.departmentAttributeId));
             foreach(var value in novalue.ToList())
             {
-                DepartmentValue v = new DepartmentValue();
-                v.departmentId = (int)departmentid;
-                v.departmentAttributeId = value.departmentAttributeId;
+                DepartmentValue v = new DepartmentValue
+                {
+                    departmentId = (int)departmentid,
+                    departmentAttributeId = value.departmentAttributeId
+                };
                 _context.Add(v);
             }
             _context.SaveChanges();

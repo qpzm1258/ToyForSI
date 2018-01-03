@@ -1,0 +1,74 @@
+@model ToyForSI.Models.DeviceFlowHistory
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>DeviceFlowHistory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="deviceFlowHistoryId" />
+            <div class="form-group">
+                <label asp-for="deviceId" class="control-label"></label>
+                <select asp-for="deviceId" class="form-control" asp-items="ViewBag.deviceId"></select>
+                <span asp-validation-for="deviceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fromLocation" class="control-label"></label>
+                <input asp-for="fromLocation" class="form-control" />
+                <span asp-validation-for="fromLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="toLocation" class="control-label"></label>
+                <input asp-for="toLocation" class="form-control" />
+                <span asp-validation-for="toLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fromDepartmentId" class="control-label"></label>
+                <select asp-for="fromDepartmentId" class="form-control" asp-items="ViewBag.fromDepartmentId"></select>
+                <span asp-validation-for="fromDepartmentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="toDepartmentId" class="control-label"></label>
+                <select asp-for="toDepartmentId" class="form-control" asp-items="ViewBag.toDepartmentId"></select>
+                <span asp-validation-for="toDepartmentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fromMemberId" class="control-label"></label>
+                <select asp-for="fromMemberId" class="form-control" asp-items="ViewBag.fromMemberId"></select>
+                <span asp-validation-for="fromMemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="toMemberId" class="control-label"></label>
+                <select asp-for="toMemberId" class="form-control" asp-items="ViewBag.toMemberId"></select>
+                <span asp-validation-for="toMemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="flowDateTime" class="control-label"></label>
+                <input asp-for="flowDateTime" class="form-control" />
+                <span asp-validation-for="flowDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="deviceStatus" class="control-label"></label>
+                <select asp-for="deviceStatus" class="form-control"></select>
+                <span asp-validation-for="deviceStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
