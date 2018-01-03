@@ -13,40 +13,42 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.contractNo)
+                @Html.DisplayNameFor(model => model.siSN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.createTime)
+                @Html.DisplayNameFor(model => model.devModel.brand)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.inWareHouse)
+                @Html.DisplayNameFor(model => model.devModel.equipmentType)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.devModel)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.siSN)
+                @Html.DisplayNameFor(model => model.inWareHouse)
             </th>
-            <th></th>
+            <th>
+                操作
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td data-th=" @Html.DisplayNameFor(model => model.contractNo)">
-                @Html.DisplayFor(modelItem => item.contractNo)
+            <td data-th="@Html.DisplayNameFor(model => model.siSN)">
+                @Html.DisplayFor(modelItem => item.siSN)
             </td>
-            <td data-th="@Html.DisplayNameFor(model => model.createTime)">
-                @Html.DisplayFor(modelItem => item.createTime)
+            <td data-th=" @Html.DisplayNameFor(model => model.devModel.brand)">
+                @Html.DisplayFor(modelItem => item.devModel.brand.brandName)
             </td>
-            <td data-th="@Html.DisplayNameFor(model => model.inWareHouse)">
-                @Html.DisplayFor(modelItem => item.inWareHouse)
+            <td data-th="@Html.DisplayNameFor(model => model.devModel.equipmentType)">
+                @Html.DisplayFor(modelItem => item.devModel.equipmentType.equipmentTypeName)
             </td>
             <td data-th="@Html.DisplayNameFor(model => model.devModel)">
                 @Html.DisplayFor(modelItem => item.devModel.devModelName)
             </td>
-            <td data-th="@Html.DisplayNameFor(model => model.siSN)">
-                @Html.DisplayFor(modelItem => item.siSN)
+            <td data-th="@Html.DisplayNameFor(model => model.inWareHouse)">
+                @Html.DisplayFor(modelItem => item.historys.LastOrDefault().deviceStatus)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.deviceId">Edit</a> |

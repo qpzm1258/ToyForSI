@@ -23,7 +23,11 @@ namespace ToyForSI.Controllers
         // GET: Device
         public async Task<IActionResult> Index(int? page)
         {
-            var toyForSIContext = _context.Device.Include(d => d.devModel);
+            var toyForSIContext = _context.Device
+            .Include(d => d.devModel).ThenInclude(m=>m.brand)
+            .Include(d => d.devModel).ThenInclude(m=>m.equipmentType)
+            .Include(d => d.historys)
+            .AsNoTracking();
             var pageOption = new MoPagerOption
             {
                 CurrentPage = page??1,

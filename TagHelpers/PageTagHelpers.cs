@@ -52,7 +52,7 @@ namespace ToyForSI.TagHelpers
 
                         sbPage.Append("<nav>");
                         sbPage.Append("  <ul class=\"pagination\">");
-                        if(PagerOption.CurrentPage-2>1)  
+                        if(PagerOption.CurrentPage-2>1&&totalPage>7)  
                         {
                              sbPage.AppendFormat("       <li><a href=\"{0}?page=1\" aria-label=\"Previous\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-step-backward\"></span></a></li>",
                                                 PagerOption.RouteUrl);
@@ -66,6 +66,10 @@ namespace ToyForSI.TagHelpers
                             startidx=startidx>0?startidx:0;
                             startidx=PagerOption.CurrentPage-2-startidx;
                             startidx=startidx<=1?1:startidx;
+                            if(totalPage<=7)
+                            {
+                                startidx=1;
+                            }
                             for (int i = startidx; i <= PagerOption.CurrentPage; i++)
                             {
 
@@ -91,7 +95,8 @@ namespace ToyForSI.TagHelpers
                         
                         if(totalPage-PagerOption.CurrentPage>2)
                         {
-                             for (int i = PagerOption.CurrentPage+1; i <= PagerOption.CurrentPage+2+(4-PagerOption.CurrentPage>0?4-PagerOption.CurrentPage:0); i++)
+                            int endidx=totalPage>7?Math.Min(totalPage,PagerOption.CurrentPage+2+(4-PagerOption.CurrentPage>0?4-PagerOption.CurrentPage:0)):7;
+                             for (int i = PagerOption.CurrentPage+1; i <= endidx; i++)
                             {
 
                                 sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}\">{0}</a></li>",
@@ -131,7 +136,7 @@ namespace ToyForSI.TagHelpers
                         sbPage.Append("               <span aria-hidden=\"true\" class=\"glyphicon glyphicon-triangle-right\"></span>");
                         sbPage.Append("         </a>");
                         sbPage.Append("       </li>");
-                        if(totalPage-PagerOption.CurrentPage>2)
+                        if(totalPage-PagerOption.CurrentPage>2&&totalPage>7)
                         {
                              sbPage.AppendFormat("       <li><a href=\"{0}?page={1}\" aria-label=\"Previous\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-step-forward\"></span></a></li>",
                                                 PagerOption.RouteUrl,
