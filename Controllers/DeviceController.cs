@@ -7,6 +7,7 @@ using ToyForSI.Data;
 using ToyForSI.Models;
 using System;
 using System.Collections.Generic;
+using ToyForSI.TagHelpers;
 
 namespace ToyForSI.Controllers
 {
@@ -20,10 +21,20 @@ namespace ToyForSI.Controllers
         }
 
         // GET: Device
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             var toyForSIContext = _context.Device.Include(d => d.devModel);
-            return View(await toyForSIContext.ToListAsync());
+            var pageOption = new MoPagerOption
+            {
+                CurrentPage = page??1,
+                PageSize = 20,
+                Total = await toyForSIContext.CountAsync(),
+                RouteUrl = "/Device/Index"
+            };
+
+            //分页参数
+            ViewBag.PagerOption = pageOption;
+            return View(await toyForSIContext.OrderByDescending(d=>d.deviceId).Skip((pageOption.CurrentPage - 1) * pageOption.PageSize).Take(pageOption.PageSize).ToListAsync());
         }
 
         // GET: Device/Details/5
