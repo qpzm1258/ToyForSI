@@ -1,13 +1,13 @@
 @model ToyForSI.Models.Member
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "人员详细";
 }
 
-<h2>Details</h2>
+<h2>人员详细资料</h2>
 
 <div>
-    <h4>Member</h4>
+    <h4>人员</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -55,6 +55,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.memberId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.memberId">编辑</a> |
+    <a asp-action="Index">返回人员列表</a>
 </div>

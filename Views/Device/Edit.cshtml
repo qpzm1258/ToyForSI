@@ -2,12 +2,12 @@
 @using ToyForSI.Models.Enum;
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "设备管理";
 }
 
-<h2>Edit</h2>
+<h2>编辑</h2>
 
-<h4>Device</h4>
+<h4>设备</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -21,7 +21,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="devModelId" class="control-label"></label>
-                <select asp-for="devModelId" class="form-control" asp-items="ViewBag.devModelId"></select>
+                <select asp-for="devModelId" class="form-control" asp-items="ViewBag.devModelId">
+                    <option value="">请选择型号</option>
+                </select>
                 <span asp-validation-for="devModelId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -31,18 +33,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="inWareHouse" class="control-label"></label>
-                <select asp-for="inWareHouse" class="form-control" asp-items="Html.GetEnumSelectList<ToyForSI.Models.Enum.Bool>()"></select>
+                <select asp-for="inWareHouse" class="form-control" asp-items="Html.GetEnumSelectList<ToyForSI.Models.Enum.Bool>()">
+                    <option value="">是否在库</option>
+                </select>
                 <span asp-validation-for="inWareHouse" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="保存" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">返回列表</a>
 </div>
 
 @section Scripts {

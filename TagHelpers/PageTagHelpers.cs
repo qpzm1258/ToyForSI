@@ -95,7 +95,7 @@ namespace ToyForSI.TagHelpers
                         
                         if(totalPage-PagerOption.CurrentPage>2)
                         {
-                            int endidx=totalPage>7?Math.Min(totalPage,PagerOption.CurrentPage+2+(4-PagerOption.CurrentPage>0?4-PagerOption.CurrentPage:0)):7;
+                            int endidx=totalPage>7?Math.Min(totalPage,PagerOption.CurrentPage+2+(4-PagerOption.CurrentPage>0?4-PagerOption.CurrentPage:0)):totalPage;
                              for (int i = PagerOption.CurrentPage+1; i <= endidx; i++)
                             {
 

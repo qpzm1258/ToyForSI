@@ -1,10 +1,10 @@
 @model IEnumerable<ToyForSI.Models.Device>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "设备管理";
 }
 
-<h2>Index</h2>
+<h2>设备列表</h2>
 
 <p>
     <a asp-action="Create">新增设备</a>
@@ -51,9 +51,9 @@
                 @Html.DisplayFor(modelItem => item.historys.LastOrDefault().deviceStatus)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.deviceId">Edit</a> |
+                <a asp-action="Edit" asp-route-id="@item.deviceId">编辑</a> |
                 <a asp-action="Details" asp-route-id="@item.deviceId">详细</a> |
-                <a asp-action="Delete" asp-route-id="@item.deviceId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.deviceId">删除</a>
             </td>
         </tr>
 }

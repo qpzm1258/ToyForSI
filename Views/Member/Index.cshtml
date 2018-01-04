@@ -1,13 +1,13 @@
 @model IEnumerable<ToyForSI.Models.Member>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "人员列表";
 }
 
-<h2>Index</h2>
+<h2>列表</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">添加新人员</a>
 </p>
 <table class="table">
     <thead>
@@ -61,9 +61,9 @@
                 @Html.DisplayFor(modelItem => item.position.positionName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.memberId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.memberId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.memberId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.memberId">编辑</a> |
+                <a asp-action="Details" asp-route-id="@item.memberId">详细</a> |
+                <a asp-action="Delete" asp-route-id="@item.memberId">删除</a>
             </td>
         </tr>
 }

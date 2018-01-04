@@ -53,8 +53,17 @@ namespace ToyForSI.Controllers
         public IActionResult Create()
         {
             step=ActionStep.create;
-            GetAttributes(null);
-            return View();
+            //GetAttributes(null);
+            var attr=_context.DepartmentAttributes;
+            var values=new List<DepartmentValue>();
+            foreach(var a in attr)
+            {
+                values.Add(new DepartmentValue{departmentAttributes=a,departmentAttributeId=a.departmentAttributeId});
+            }
+            Department department=new Department(){
+                departmentValues=values
+            };
+            return View(department);
         }
 
         // POST: Department/Create
@@ -62,21 +71,26 @@ namespace ToyForSI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("departmentId,departmentName")] Department department, IDictionary<int,string> dictionary)
+        public async Task<IActionResult> Create(Department model)
         {
             step=ActionStep.create;
             if (ModelState.IsValid)
             {
-                _context.Add(department);
-                //await _context.SaveChangesAsync();
-                foreach(KeyValuePair<int,string> value in dictionary)
+                foreach(var value in model.departmentValues)
                 {
-                    _context.Add(new DepartmentValue { departmentAttributeId = value.Key,department=department,departmentValue = value.Value });
+                    value.department=model;
+                    _context.Add(value);
                 }
+                _context.Add(model);
+                //await _context.SaveChangesAsync();
+                // foreach(KeyValuePair<int,string> value in dictionary)
+                // {
+                //     _context.Add(new DepartmentValue { departmentAttributeId = value.Key,department=department,departmentValue = value.Value });
+                // }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(model);
         }
 
         // GET: Department/Edit/5

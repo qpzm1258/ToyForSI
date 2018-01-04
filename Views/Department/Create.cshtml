@@ -17,17 +17,23 @@
                 <input asp-for="departmentName" class="form-control" />
                 <span asp-validation-for="departmentName" class="text-danger"></span>
             </div>
-            @{ 
-                foreach (var attr in ViewBag.DepartmentValue)
+            @{
+                if (Model.departmentValues != null)
                 {
-                    
+                    int idx = 0;
+                    foreach (var item in Model.departmentValues)
+                    {
+
                     @:<div class="form-group">
-                        <label class="control-label">@attr.aName</label>
-                        <input name="dictionary[@attr.aId]" value="@attr.value" class="form-control" />
-                        <span asp-validation-for="departmentName" class="text-danger"></span>
+                        <label class="control-label">@item.departmentAttributes.departmentAttributeName</label>
+                        <input asp-for="@Model.departmentValues[idx].departmentValue" class="form-control" />
+                        <input asp-for="@Model.departmentValues[idx].departmentAttributeId" class="form-control" style="display:none" value="@item.departmentAttributeId"/>
                     @:</div>
+                            idx++;
+                        }
                     }
                 }
+
             <div class="form-group">
                 <input type="submit" value="新建" class="btn btn-default" />
             </div>

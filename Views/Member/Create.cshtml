@@ -2,12 +2,12 @@
 @using ToyForSI.Models.Enum;
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "添加人员";
 }
 
-<h2>Create</h2>
+<h2>添加</h2>
 
-<h4>Member</h4>
+<h4>人员</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,7 +20,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="sex" class="control-label"></label>
-                <select asp-for="sex" class="form-control" asp-items="Html.GetEnumSelectList<ToyForSI.Models.Enum.Sex>()"></select>
+                <select asp-for="sex" class="form-control" asp-items="Html.GetEnumSelectList<ToyForSI.Models.Enum.Sex>()">
+                    <option value="">请选择性别</option>
+                </select>
                 <span asp-validation-for="sex" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,11 +32,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="departmentId" class="control-label"></label>
-                <select asp-for="departmentId" class ="form-control" asp-items="ViewBag.departmentId"></select>
+                <select asp-for="departmentId" class ="form-control" asp-items="ViewBag.departmentId">
+                    <option value="">无</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="positionId" class="control-label"></label>
-                <select asp-for="positionId" class ="form-control" asp-items="ViewBag.positionId"></select>
+                <select asp-for="positionId" class ="form-control" asp-items="ViewBag.positionId">
+                    <option value="">无</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="IDCard" class="control-label"></label>
@@ -47,14 +53,14 @@
                 <span asp-validation-for="createTime" class="text-danger"></span>
             </div> -->
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="添加" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">返回列表</a>
 </div>
 
 @section Scripts {

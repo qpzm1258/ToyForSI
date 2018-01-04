@@ -1,13 +1,13 @@
 @model IEnumerable<ToyForSI.Models.EquipmentType>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "列表";
 }
 
-<h2>Index</h2>
+<h2>设备类型列表</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">添加设备类型</a>
 </p>
 <table class="table">
     <thead>
@@ -31,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.equipmentTypeRemarks)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.equipmentTypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.equipmentTypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.equipmentTypeId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.equipmentTypeId">编辑</a> |
+                <a asp-action="Details" asp-route-id="@item.equipmentTypeId">详细</a> |
+                <a asp-action="Delete" asp-route-id="@item.equipmentTypeId">删除</a>
             </td>
         </tr>
 }

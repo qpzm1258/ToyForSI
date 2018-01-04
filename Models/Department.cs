@@ -14,8 +14,8 @@ namespace ToyForSI.Models
         [Remote(action: "VerifyName", controller: "Department", AdditionalFields="departmentId")]
         public string departmentName {get;set;}
 
-        public ICollection<DepartmentValue> departmentValues{get;set;}
-        public ICollection<Member> members { get; set; }
+        public List<DepartmentValue> departmentValues{get;set;}
+        public List<Member> members { get; set; }
 
         public int memberCount
         {

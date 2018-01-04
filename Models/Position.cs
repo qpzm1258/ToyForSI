@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Collections.Generic;
 namespace ToyForSI.Models
 {
     public class Position
@@ -13,5 +13,6 @@ namespace ToyForSI.Models
         [DataType(DataType.MultilineText)]
         [Display(Name ="职位简介",Prompt ="请输入职位简介")]
         public string positionAbstract { get; set; }
+        public List<Member> members{get;set;}
     }
 }

@@ -1,13 +1,13 @@
 @model ToyForSI.Models.EquipmentType
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "详细";
 }
 
-<h2>Details</h2>
+<h2>设备类型详细</h2>
 
 <div>
-    <h4>EquipmentType</h4>
+    <h4>设备类型</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -25,6 +25,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.equipmentTypeId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.equipmentTypeId">编辑</a> |
+    <a asp-action="Index">返回列表</a>
 </div>

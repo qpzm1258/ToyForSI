@@ -1,13 +1,13 @@
 @model IEnumerable<ToyForSI.Models.Brand>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "品牌列表";
 }
 
-<h2>Index</h2>
+<h2>品牌列表</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">添加品牌</a>
 </p>
 <table class="table">
     <thead>
@@ -49,9 +49,9 @@
                 <img src="@Html.DisplayFor(modelItem => item.brandLogo)"  style="height:25px;">
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.brandId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.brandId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.brandId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.brandId">编辑</a> |
+                <a asp-action="Details" asp-route-id="@item.brandId">详细</a> |
+                <a asp-action="Delete" asp-route-id="@item.brandId">删除</a>
             </td>
         </tr>
 }
