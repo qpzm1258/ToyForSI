@@ -2,18 +2,19 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ToyForSI.Data;
 using ToyForSI.ViewModels;
 using ToyForSI.Models;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ToyForSI.Controllers
 {
+    [Authorize]
     public class DeviceFlowController : Controller
     {
         private readonly ToyForSIContext _context;
@@ -68,7 +69,7 @@ namespace ToyForSI.Controllers
             ViewData["fromDepartmentId"] = new List<SelectListItem>(){new SelectListItem(){Value="",Text="无"}};
             ViewData["fromMemberId"] = new List<SelectListItem>(){new SelectListItem(){Value="",Text="无"}};
             ViewData["fromLocation"]= new List<SelectListItem>(){new SelectListItem(){Value="",Text="无"}};
-            if (device.historys.Count!=0)
+            if (device.historys.ToList().Count!=0)
             {
                 var lastHistory=device.historys.OrderBy(c=>c.deviceFlowHistoryId).ToList().Last();
                 history.fromLocation = lastHistory.toLocation;
@@ -170,7 +171,10 @@ namespace ToyForSI.Controllers
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> CheckSN(string sisn)
         {
-            if (await _context.Device.CountAsync(d => d.deviceId == Int32.Parse(sisn.Substring(6))) != 1)
+            var devices = await _context.Device
+                .Include(d=>d.devModel)
+                .Where(d => d.deviceId == Int32.Parse(sisn.Substring(6))).SingleAsync();
+            if (devices == null || devices.siSN != sisn)
             {
                 return Json(data: false);
             }

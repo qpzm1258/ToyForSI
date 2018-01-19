@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.siSN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.devModel.brand)
+                @Html.DisplayNameFor(model => model.DeviceSummary)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.devModel.equipmentType)
+                @Html.DisplayNameFor(model => model.User)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.devModel)
+                @Html.DisplayNameFor(model => model.UserDepartment)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.inWareHouse)
@@ -38,14 +38,14 @@
             <td data-th="@Html.DisplayNameFor(model => model.siSN)">
                 @Html.DisplayFor(modelItem => item.siSN)
             </td>
-            <td data-th=" @Html.DisplayNameFor(model => model.devModel.brand)">
-                @Html.DisplayFor(modelItem => item.devModel.brand.brandName)
+            <td data-th=" @Html.DisplayNameFor(model => model.DeviceSummary)">
+                @Html.DisplayFor(modelItem => item.DeviceSummary)
             </td>
-            <td data-th="@Html.DisplayNameFor(model => model.devModel.equipmentType)">
-                @Html.DisplayFor(modelItem => item.devModel.equipmentType.equipmentTypeName)
+            <td data-th="@Html.DisplayNameFor(model => model.User)">
+                @Html.DisplayFor(modelItem => item.User)
             </td>
-            <td data-th="@Html.DisplayNameFor(model => model.devModel)">
-                @Html.DisplayFor(modelItem => item.devModel.devModelName)
+            <td data-th="@Html.DisplayNameFor(model => model.UserDepartment)">
+                @Html.DisplayFor(modelItem => item.UserDepartment)
             </td>
             <td data-th="@Html.DisplayNameFor(model => model.inWareHouse)">
                 @Html.DisplayFor(modelItem => item.historys.LastOrDefault().deviceStatus)

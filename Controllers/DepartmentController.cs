@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ToyForSI.Data;
 using ToyForSI.Models;
@@ -12,6 +11,7 @@ using ToyForSI.Controllers.Enum;
 
 namespace ToyForSI.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly ToyForSIContext _context;
@@ -76,11 +76,11 @@ namespace ToyForSI.Controllers
             step=ActionStep.create;
             if (ModelState.IsValid)
             {
-                foreach(var value in model.departmentValues)
-                {
-                    value.department=model;
-                    _context.Add(value);
-                }
+                //foreach(var value in model.departmentValues)
+                //{
+                //    value.department=model;
+                //    _context.Add(value);
+                //}
                 _context.Add(model);
                 //await _context.SaveChangesAsync();
                 // foreach(KeyValuePair<int,string> value in dictionary)

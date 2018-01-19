@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +10,7 @@ using ToyForSI.Models;
 
 namespace ToyForSI.Controllers
 {
+    [Authorize]
     public class MemberController : Controller
     {
         private readonly ToyForSIContext _context;

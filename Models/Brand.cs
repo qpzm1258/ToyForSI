@@ -26,9 +26,6 @@ namespace ToyForSI.Models
         [DataType(DataType.ImageUrl, ErrorMessage = "请输入正确logo网址")]
         public string brandLogo { get; set; }
 
-        public ICollection<DevModel> devModels{get;set;}
-
-
-
+        public IEnumerable<DevModel> devModels{get;set;}
     }
 }

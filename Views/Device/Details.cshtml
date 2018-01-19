@@ -38,7 +38,7 @@
             @Html.DisplayNameFor(model => model.siSN)
         </dt>
         <dd>
-            <qrcode alt="QR Code" content="@ViewData["SiSN"]"/>
+            <qrcode alt="@ViewData["SiSN"]" content="@ViewData["SiSN"]"/>
         </dd>
     </dl>
     <h4>设备转移历史</h4>
@@ -47,19 +47,19 @@
     <thead>
         <tr>
             <th>
+               从（科室）
+            </th>
+            <th>
                 从（地点）
             </th>
-            <th>
-                到（地点）
-            </th>
-            <th>
-               从（科室）
+             <th>
+                从（使用者）
             </th>
             <th>
                到（科室）
             </th>
             <th>
-                从（使用者）
+                到（地点）
             </th>
             <th>
                到（使用者）
@@ -75,20 +75,20 @@
     <tbody>
 @foreach (var item in Model.historys) {
         <tr>
+            <td data-th="从（科室）">
+                @Html.DisplayFor(modelItem => item.formdepartment.departmentName)
+            </td>
             <td data-th="从（地点）">
                 @Html.DisplayFor(modelItem => item.fromLocation)
             </td>
-            <td data-th="到（地点）">
-                @Html.DisplayFor(modelItem => item.toLocation)
-            </td>
-            <td data-th="从（科室）">
-                @Html.DisplayFor(modelItem => item.formdepartment.departmentName)
+            <td data-th="从（使用者）">
+                @Html.DisplayFor(modelItem => item.fromMember.name)
             </td>
             <td data-th="到（科室）">
                 @Html.DisplayFor(modelItem => item.toDepartment.departmentName)
             </td>
-            <td data-th="从（使用者）">
-                @Html.DisplayFor(modelItem => item.fromMember.name)
+            <td data-th="到（地点）">
+                @Html.DisplayFor(modelItem => item.toLocation)
             </td>
             <td data-th="到（使用者）">
                 @Html.DisplayFor(modelItem => item.toMember.name)

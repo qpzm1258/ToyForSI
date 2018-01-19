@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using ToyForSI.Models.Enum;
 using System.Collections.Generic;
+using ToyForSI.Data;
+using System.Linq;
 
 namespace ToyForSI.Models
 {
@@ -40,6 +42,74 @@ namespace ToyForSI.Models
         }
         [Display(Name ="是否在库")]
         public ToyForSI.Models.Enum.Bool inWareHouse { get; set; }
-        public List<DeviceFlowHistory> historys{get;set;}
+        public IEnumerable<DeviceFlowHistory> historys{get;set;}
+
+        [Display(Name="设备概要")]
+        public string DeviceSummary{
+            get
+            {
+                string deviceSummary=string.Empty;
+                if(this.devModel!=null)
+                {
+                    if(this.devModel.brand!=null)
+                    {
+                        deviceSummary+=this.devModel.brand.brandName;
+                    }
+                    deviceSummary+=this.devModel.devModelName;
+                    if(this.devModel.equipmentType!=null)
+                    {
+                        deviceSummary+=this.devModel.equipmentType.equipmentTypeName;
+                    } 
+                }
+                return deviceSummary;
+            }
+        }
+
+        public DeviceFlowHistory LastHistory
+        {
+            get
+            {
+                DeviceFlowHistory lastHistory=null;
+                if(historys!=null)
+                {
+                    lastHistory=historys.OrderBy(h=>h.deviceFlowHistoryId).Last();
+                }
+                return lastHistory;
+            }
+        }
+
+        [Display(Name="使用者")]
+        public string User
+        {
+            get
+            {
+                string user=string.Empty;
+                if(LastHistory!=null)
+                {
+                    if(LastHistory.toMember!=null)
+                    {
+                        user=LastHistory.toMember.name;
+                    }
+                }
+                return user;
+            }
+        }
+        [Display(Name="归属部门")]
+        public string UserDepartment
+        {
+            get
+            {
+                string userDepartment=string.Empty;
+                if(LastHistory!=null)
+                {
+                    if(LastHistory.toDepartment!=null)
+                    {
+                        userDepartment=LastHistory.toDepartment.departmentName;
+                    }
+                }
+                return userDepartment;
+            }
+
+        }
     }
 }

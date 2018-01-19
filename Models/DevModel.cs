@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using ToyForSI.Models.Enum;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ToyForSI.Models
 {
@@ -23,7 +24,7 @@ namespace ToyForSI.Models
         [Required(ErrorMessage="设备类型不能为空")]
         public int? equipmentTypeId{get;set;}
 
-        public ICollection<Device> devices{get;set;}
+        public IEnumerable<Device> devices{get;set;}
 
          public int devCount
         {
@@ -31,7 +32,7 @@ namespace ToyForSI.Models
             {
                 if (devices!=null)
                 {
-                    return devices.Count;
+                    return devices.ToList().Count;
                 }
                 else
                 {

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using ToyForSI.Data;
 using ToyForSI.Models.Enum;
@@ -18,6 +19,184 @@ namespace ToyForSI.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.Brand", b =>
+                {
+                    b.Property<int>("brandId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("brandEmail");
+
+                    b.Property<string>("brandLogo");
+
+                    b.Property<string>("brandName")
+                        .IsRequired();
+
+                    b.Property<string>("brandServiceHotLine");
+
+                    b.Property<string>("brandUrl");
+
+                    b.HasKey("brandId");
+
+                    b.ToTable("Brand");
+                });
 
             modelBuilder.Entity("ToyForSI.Models.Department", b =>
                 {
@@ -75,23 +254,192 @@ namespace ToyForSI.Migrations
                     b.ToTable("DepartmentValue");
                 });
 
-            modelBuilder.Entity("ToyForSI.Models.User", b =>
+            modelBuilder.Entity("ToyForSI.Models.Device", b =>
                 {
-                    b.Property<int>("userId")
+                    b.Property<int>("deviceId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("isActive");
-
-                    b.Property<string>("userName")
+                    b.Property<string>("contractNo")
                         .IsRequired();
 
-                    b.Property<string>("userPassword")
+                    b.Property<DateTime>("createTime");
+
+                    b.Property<int?>("devModelId")
+                        .IsRequired();
+
+                    b.Property<int>("inWareHouse");
+
+                    b.HasKey("deviceId");
+
+                    b.HasIndex("devModelId");
+
+                    b.ToTable("Device");
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.DeviceFlowHistory", b =>
+                {
+                    b.Property<int>("deviceFlowHistoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("deviceId");
+
+                    b.Property<int>("deviceStatus");
+
+                    b.Property<DateTime>("flowDateTime");
+
+                    b.Property<int?>("fromDepartmentId");
+
+                    b.Property<string>("fromLocation");
+
+                    b.Property<int?>("fromMemberId");
+
+                    b.Property<int?>("toDepartmentId");
+
+                    b.Property<string>("toLocation");
+
+                    b.Property<int?>("toMemberId");
+
+                    b.HasKey("deviceFlowHistoryId");
+
+                    b.HasIndex("deviceId");
+
+                    b.HasIndex("fromDepartmentId");
+
+                    b.HasIndex("fromMemberId");
+
+                    b.HasIndex("toDepartmentId");
+
+                    b.HasIndex("toMemberId");
+
+                    b.ToTable("DeviceFlowHistory");
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.DevModel", b =>
+                {
+                    b.Property<int>("devModelId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("brandId")
+                        .IsRequired();
+
+                    b.Property<string>("devModelName")
+                        .IsRequired();
+
+                    b.Property<int?>("equipmentTypeId")
+                        .IsRequired();
+
+                    b.HasKey("devModelId");
+
+                    b.HasIndex("brandId");
+
+                    b.HasIndex("equipmentTypeId");
+
+                    b.ToTable("DevModel");
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.EquipmentType", b =>
+                {
+                    b.Property<int>("equipmentTypeId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("equipmentTypeName")
+                        .IsRequired();
+
+                    b.Property<string>("equipmentTypeRemarks");
+
+                    b.HasKey("equipmentTypeId");
+
+                    b.ToTable("EquipmentType");
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.Member", b =>
+                {
+                    b.Property<int>("memberId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("IDCard");
+
+                    b.Property<DateTime>("createTime");
+
+                    b.Property<int?>("departmentId");
+
+                    b.Property<string>("employeeId")
                         .IsRequired()
-                        .HasMaxLength(12);
+                        .HasMaxLength(6);
 
-                    b.HasKey("userId");
+                    b.Property<string>("name")
+                        .IsRequired();
 
-                    b.ToTable("User");
+                    b.Property<int?>("positionId");
+
+                    b.Property<int>("sex");
+
+                    b.HasKey("memberId");
+
+                    b.HasIndex("departmentId");
+
+                    b.HasIndex("positionId");
+
+                    b.ToTable("Member");
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.Position", b =>
+                {
+                    b.Property<int>("positionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("positionAbstract");
+
+                    b.Property<string>("positionName");
+
+                    b.HasKey("positionId");
+
+                    b.ToTable("Position");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("ToyForSI.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("ToyForSI.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ToyForSI.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("ToyForSI.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ToyForSI.Models.DepartmentValue", b =>
@@ -105,6 +453,68 @@ namespace ToyForSI.Migrations
                         .WithMany("departmentValues")
                         .HasForeignKey("departmentId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.Device", b =>
+                {
+                    b.HasOne("ToyForSI.Models.DevModel", "devModel")
+                        .WithMany("devices")
+                        .HasForeignKey("devModelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.DeviceFlowHistory", b =>
+                {
+                    b.HasOne("ToyForSI.Models.Device", "device")
+                        .WithMany("historys")
+                        .HasForeignKey("deviceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ToyForSI.Models.Department", "formdepartment")
+                        .WithMany()
+                        .HasForeignKey("fromDepartmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ToyForSI.Models.Member", "fromMember")
+                        .WithMany()
+                        .HasForeignKey("fromMemberId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ToyForSI.Models.Department", "toDepartment")
+                        .WithMany()
+                        .HasForeignKey("toDepartmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ToyForSI.Models.Member", "toMember")
+                        .WithMany()
+                        .HasForeignKey("toMemberId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.DevModel", b =>
+                {
+                    b.HasOne("ToyForSI.Models.Brand", "brand")
+                        .WithMany("devModels")
+                        .HasForeignKey("brandId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ToyForSI.Models.EquipmentType", "equipmentType")
+                        .WithMany("devModels")
+                        .HasForeignKey("equipmentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ToyForSI.Models.Member", b =>
+                {
+                    b.HasOne("ToyForSI.Models.Department", "department")
+                        .WithMany("members")
+                        .HasForeignKey("departmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ToyForSI.Models.Position", "position")
+                        .WithMany("members")
+                        .HasForeignKey("positionId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }

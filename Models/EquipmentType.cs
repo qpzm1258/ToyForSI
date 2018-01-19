@@ -15,6 +15,6 @@ namespace ToyForSI.Models
         [Display(Name="设备类型备注",Prompt="请输入设备类型备注")]
         public string equipmentTypeRemarks{get;set;}
 
-        public ICollection<DevModel> devModels{get;set;}
+        public IEnumerable<DevModel> devModels{get;set;}
     }
 }

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ToyForSI.Data;
 using ToyForSI.Models;
@@ -11,6 +12,7 @@ using ToyForSI.TagHelpers;
 
 namespace ToyForSI.Controllers
 {
+    [Authorize]
     public class DeviceController : Controller
     {
         private readonly ToyForSIContext _context;
@@ -24,10 +26,8 @@ namespace ToyForSI.Controllers
         public async Task<IActionResult> Index(int? page)
         {
             var toyForSIContext = _context.Device
-            .Include(d => d.devModel).ThenInclude(m=>m.brand)
-            .Include(d => d.devModel).ThenInclude(m=>m.equipmentType)
-            .Include(d => d.historys)
             .AsNoTracking();
+            
             var pageOption = new MoPagerOption
             {
                 CurrentPage = page??1,
@@ -35,6 +35,10 @@ namespace ToyForSI.Controllers
                 Total = await toyForSIContext.CountAsync(),
                 RouteUrl = "/Device/Index"
             };
+            toyForSIContext=toyForSIContext.Include(d => d.devModel).ThenInclude(m=>m.brand)
+            .Include(d => d.devModel).ThenInclude(m=>m.equipmentType)
+            .Include(d => d.historys).ThenInclude(i=>i.toMember)
+            .Include(d => d.historys).ThenInclude(i=>i.toDepartment);;
 
             //分页参数
             ViewBag.PagerOption = pageOption;

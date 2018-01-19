@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using ToyForSI.Data;
 using ToyForSI.Models;
 
 namespace ToyForSI.Controllers
 {
+    [Authorize]
     public class EquipmentTypeController : Controller
     {
         private readonly ToyForSIContext _context;

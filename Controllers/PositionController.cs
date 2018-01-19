@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ToyForSI.Data;
 using ToyForSI.Models;
@@ -11,6 +9,7 @@ using ToyForSI.Controllers.Enum;
 
 namespace ToyForSI.Controllers
 {
+    [Authorize]
     public class PositionController : Controller
     {
         private readonly ToyForSIContext _context;
