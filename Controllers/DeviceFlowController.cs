@@ -80,7 +80,7 @@ namespace ToyForSI.Controllers
                 {
                     ViewData["fromDepartmentId"] = new SelectList(_context.Department.Where(d=>d.departmentId==history.fromDepartmentId), "departmentId", "departmentName", history.fromDepartmentId);
                 }
-                if (toDepart.HasValue)
+                if (lastHistory.toMemberId.HasValue)
                 {
                     ViewData["fromMemberId"] = new SelectList(_context.Member, "memberId", "name",history.fromMemberId);
                 }
@@ -108,7 +108,7 @@ namespace ToyForSI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Do([Bind("deviceId,fromDepartmentId,fromMemberId,fromLocation,toDepartmentId,toMemberId,toLocation,deviceStatus,flowDateTime")] DeviceFlowHistory history)
+        public async Task<IActionResult> Do([Bind("deviceId,fromDepartmentId,fromMemberId,fromLocation,toDepartmentId,toMemberId,toLocation,deviceStatus,flowDateTime")] DeviceFlowHistory history, bool configNetwork)
         {
             if (ModelState.IsValid)
             {
@@ -134,8 +134,10 @@ namespace ToyForSI.Controllers
                 //    _context.Add(history);
                 //}
                 //await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                if(!configNetwork)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             var device = await _context.Device.Include(d=>d.historys).Include(d=>d.devModel).SingleOrDefaultAsync(m => m.deviceId == history.deviceId);
             if (device == null)
@@ -183,5 +185,19 @@ namespace ToyForSI.Controllers
                 return Json(data: true);
             }
         }
+
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> getMember(int? departmentId)
+        {
+            
+            var members = _context.Member;
+            if(departmentId.HasValue){
+                return Json(await members.Where(d => d.departmentId==departmentId).AsNoTracking().ToListAsync());
+            }
+            else{
+                return Json(await members.ToListAsync());
+            }
+        }
+
     }
 }

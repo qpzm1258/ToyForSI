@@ -70,7 +70,7 @@ namespace ToyForSI.Models
                 PropertyInfo propertyInfo;
                 foreach (string propertyName in PropertyList)
                 {
-                    propertyInfo = value.GetType().GetProperty(propertyName);
+                    propertyInfo =value.GetType().GetProperty(propertyName);
 
                     if (propertyInfo != null && propertyInfo.GetValue(value, null) != null)
                     {

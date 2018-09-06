@@ -23,6 +23,8 @@ namespace ToyForSI.Models
         [Display(Name="入库时间")]
         [DataType(DataType.DateTime)]
         public DateTime createTime{get;set;}
+        [Display(Name="网卡信息")]
+        public IEnumerable<NetworkAdepter> networkAdepters{get;set;}
         [Display(Name ="局内编号")]
         
         public String siSN

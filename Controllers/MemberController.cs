@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ToyForSI.Data;
 using ToyForSI.Models;
+using ToyForSI.TagHelpers;
+using System.Collections.Generic;
 
 namespace ToyForSI.Controllers
 {
@@ -18,13 +20,99 @@ namespace ToyForSI.Controllers
         public MemberController(ToyForSIContext context)
         {
             _context = context;
+
+            
         }
 
         // GET: Member
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SortOrder, string searchName, string searchDepartment, string searchPosition, int? page)
         {
-            var toyForSIContext = _context.Member.Include(m => m.department).Include(m => m.position);
-            return View(await toyForSIContext.ToListAsync());
+            ViewData["NAME"] = SortOrder == "NAME" ? "NAME_DES" : "NAME";
+            ViewData["DEP"] = SortOrder == "DEP" ? "DEP_DES" : "DEP";
+            ViewData["POS"] = SortOrder == "POS" ? "POS_DES" : "POS";
+            var toyForSIContext =await _context.Member.AsTracking()
+            .Include(m => m.department).Include(m => m.position).OrderBy(d => d.memberId).ToListAsync();
+
+            Dictionary<string, string> currentFilter=new Dictionary<string,string>();
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                ViewData["SearchName"] = searchName;
+                currentFilter.Add("searchName", searchName);
+                toyForSIContext = toyForSIContext.Where(d => d.name.Contains(searchName)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(searchDepartment))
+            {
+                ViewData["SearchDepartment"] = searchDepartment;
+                currentFilter.Add("searchDepartment", searchDepartment);
+                toyForSIContext = toyForSIContext.Where(d => d.department.departmentName.Contains(searchDepartment)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(searchPosition))
+            {
+                ViewData["SearchPosition"] = searchPosition;
+                currentFilter.Add("searchPosition", searchPosition);
+                toyForSIContext = toyForSIContext.Where(d => d.position.positionName.Contains(searchPosition)).ToList();
+            }
+
+            switch (SortOrder)
+            {
+                case "NAME":
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.name).ToList();
+                    ViewData["NAME"] = "NAME_DES";
+                    ViewData["DEP"] = "DEP";
+                    ViewData["POS"] = "POS";
+                    break;
+                case "NAME_DES":
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.name).ToList();
+                    ViewData["NAME"] = "";
+                    ViewData["DEP"] = "DEP";
+                    ViewData["POS"] = "POS";
+                    break;
+                case "DEP":
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.departmentId).ToList();
+                    ViewData["NAME"] = "NAME";
+                    ViewData["DEP"] = "DEP_DES";
+                    ViewData["POS"] = "POS";
+                    break;
+                case "DEP_DES":
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.departmentId).ToList();
+                    ViewData["NAME"] = "NAME";
+                    ViewData["DEP"] = "";
+                    ViewData["POS"] = "POS";
+                    break;
+                case "POS":
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.positionId).ToList();
+                    ViewData["NAME"] = "NAME";
+                    ViewData["DEP"] = "DEP";
+                    ViewData["POS"] = "POS_DES";
+                    break;
+                case "POS_DES":
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.positionId).ToList();
+                    ViewData["NAME"] = "NAME";
+                    ViewData["DEP"] = "DEP";
+                    ViewData["POS"] = "";
+                    break;
+                default:
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.memberId).ToList();
+                    break;
+            }
+
+            var pageOption = new MoPagerOption
+            {
+                CurrentPage = page??1,
+                PageSize = 20,
+                Total = toyForSIContext.Count(),
+                RouteUrl = "/Member/Index",
+                CurrentSort=SortOrder,
+                CurrentFilter=currentFilter
+            };
+
+            //分页参数
+            ViewBag.PagerOption = pageOption;
+            return View(toyForSIContext.Skip((pageOption.CurrentPage - 1) * pageOption.PageSize).Take(pageOption.PageSize).ToList());
+            //return View(await toyForSIContext.ToListAsync());
         }
 
         // GET: Member/Details/5

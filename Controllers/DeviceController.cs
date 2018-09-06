@@ -38,7 +38,7 @@ namespace ToyForSI.Controllers
             toyForSIContext=toyForSIContext.Include(d => d.devModel).ThenInclude(m=>m.brand)
             .Include(d => d.devModel).ThenInclude(m=>m.equipmentType)
             .Include(d => d.historys).ThenInclude(i=>i.toMember)
-            .Include(d => d.historys).ThenInclude(i=>i.toDepartment);;
+            .Include(d => d.historys).ThenInclude(i=>i.toDepartment);
 
             //分页参数
             ViewBag.PagerOption = pageOption;
@@ -86,8 +86,12 @@ namespace ToyForSI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("deviceId,contractNo,devModelId,createTime,inWareHouse,devCount,toLocation")] MultiDev multidev)
         {
+            
+            //DeviceFlowHistory history = new DeviceFlowHistory { toLocation = multidev.toLocation, flowDateTime = multidev.createTime, deviceStatus = ToyForSI.Models.Enum.DeviceStatus.Warehouse };
+            //multidev.historys = new List<DeviceFlowHistory>() { history }.AsEnumerable();
             if (ModelState.IsValid)
             {
+
                 //List<Device> devices=new List<Device>();
                 for (int idx = 0; idx != multidev.devCount; idx++)
                 {
@@ -97,12 +101,12 @@ namespace ToyForSI.Controllers
                     {
                         history
                     };
-                    Device device = 
+                    Device device =
                         new Device { contractNo = multidev.contractNo,
                             devModelId = multidev.devModelId,
                             createTime = multidev.createTime,
                             inWareHouse = multidev.inWareHouse,
-                            historys=h
+                            historys = h.AsEnumerable()
                         };
                     _context.Add(device);
                 }

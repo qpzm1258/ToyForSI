@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.IO;
 using ZXing.QrCode;
+using ZXing.Rendering;
 using System.Text;
 
 namespace ToyForSI.TagHelpers
@@ -13,17 +14,19 @@ namespace ToyForSI.TagHelpers
         {
             var QrcodeContent = context.AllAttributes["content"].Value.ToString();
             var alt = context.AllAttributes["alt"].Value.ToString();
-            var width = 150; // width of the Qr Code   
-            var height = 150; // height of the Qr Code   
-            var margin = 0;
+            var width = 250; // width of the Qr Code   
+            var height = 100; // height of the Qr Code   
+            //var margin = 0;
             var qrCodeWriter = new ZXing.BarcodeWriterPixelData
             {
-                Format = ZXing.BarcodeFormat.QR_CODE,
+                //Format = ZXing.BarcodeFormat.QR_CODE,
+				Format = ZXing.BarcodeFormat.CODE_128,
                 Options = new QrCodeEncodingOptions
                 {
                     Height = height,
                     Width = width,
-                    Margin = margin,
+                    PureBarcode = true,
+                    //Margin = margin,
                     CharacterSet= "UTF-8"
                 }
             };
@@ -40,12 +43,13 @@ namespace ToyForSI.TagHelpers
                 {
                     // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
                     System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
+                    
                 }
                 finally
                 {
                     bitmap.UnlockBits(bitmapData);
                 }
-                // save to stream as PNG   
+                // save to stream as PNG  
                 bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 output.TagName = "img";
                 output.Attributes.Clear();

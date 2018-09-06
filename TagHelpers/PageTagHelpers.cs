@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using ZXing.QrCode;
 using System.Text;
+using System.Collections.Generic;
 
 namespace ToyForSI.TagHelpers
 {
@@ -54,12 +55,16 @@ namespace ToyForSI.TagHelpers
                         sbPage.Append("  <ul class=\"pagination\">");
                         if(PagerOption.CurrentPage-2>1&&totalPage>7)  
                         {
-                             sbPage.AppendFormat("       <li><a href=\"{0}?page=1\" aria-label=\"Previous\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-step-backward\"></span></a></li>",
-                                                PagerOption.RouteUrl);
-                        }
-                        sbPage.AppendFormat("       <li><a href=\"{0}?page={1}\" aria-label=\"Previous\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-triangle-left\"></span></a></li>",
+                             sbPage.AppendFormat("       <li><a href=\"{0}?page=1&SortOrder={1}{2}\" aria-label=\"Previous\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-step-backward\"></span></a></li>",
                                                 PagerOption.RouteUrl,
-                                                PagerOption.CurrentPage - 1 <= 0 ? 1 : PagerOption.CurrentPage - 1);
+                                                PagerOption.CurrentSort,
+                                                PagerOption.CurrentFilterString);
+                        }
+                        sbPage.AppendFormat("       <li><a href=\"{0}?page={1}&SortOrder={2}{3}\" aria-label=\"Previous\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-triangle-left\"></span></a></li>",
+                                                PagerOption.RouteUrl,
+                                                PagerOption.CurrentPage - 1 <= 0 ? 1 : PagerOption.CurrentPage - 1,
+                                                PagerOption.CurrentSort,
+                                                PagerOption.CurrentFilterString);
                         if(PagerOption.CurrentPage-2>1)  
                         {
                             int startidx= 3-totalPage+PagerOption.CurrentPage;
@@ -73,10 +78,12 @@ namespace ToyForSI.TagHelpers
                             for (int i = startidx; i <= PagerOption.CurrentPage; i++)
                             {
 
-                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}\">{0}</a></li>",
+                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}&SortOrder={3}{4}\">{0}</a></li>",
                                     i,
                                     i == PagerOption.CurrentPage ? "class=\"active\"" : "",
-                                    PagerOption.RouteUrl);
+                                    PagerOption.RouteUrl,
+                                    PagerOption.CurrentSort,
+                                    PagerOption.CurrentFilterString);
 
                             }
                         } 
@@ -85,10 +92,12 @@ namespace ToyForSI.TagHelpers
                             for (int i = 1; i <= PagerOption.CurrentPage; i++)
                             {
 
-                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}\">{0}</a></li>",
+                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}&SortOrder={3}{4}\">{0}</a></li>",
                                     i,
                                     i == PagerOption.CurrentPage ? "class=\"active\"" : "",
-                                    PagerOption.RouteUrl);
+                                    PagerOption.RouteUrl,
+                                    PagerOption.CurrentSort,
+                                    PagerOption.CurrentFilterString);
 
                             }
                         }
@@ -99,10 +108,12 @@ namespace ToyForSI.TagHelpers
                              for (int i = PagerOption.CurrentPage+1; i <= endidx; i++)
                             {
 
-                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}\">{0}</a></li>",
+                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}&SortOrder={3}{4}\">{0}</a></li>",
                                     i,
                                     i == PagerOption.CurrentPage ? "class=\"active\"" : "",
-                                    PagerOption.RouteUrl);
+                                    PagerOption.RouteUrl,
+                                    PagerOption.CurrentSort,
+                                    PagerOption.CurrentFilterString);
 
                             }
                         }
@@ -111,10 +122,12 @@ namespace ToyForSI.TagHelpers
                               for (int i = PagerOption.CurrentPage+1; i <= totalPage; i++)
                             {
 
-                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}\">{0}</a></li>",
+                                sbPage.AppendFormat("       <li {1}><a href=\"{2}?page={0}&SortOrder={3}{4}\">{0}</a></li>",
                                     i,
                                     i == PagerOption.CurrentPage ? "class=\"active\"" : "",
-                                    PagerOption.RouteUrl);
+                                    PagerOption.RouteUrl,
+                                    PagerOption.CurrentSort,
+                                    PagerOption.CurrentFilterString);
 
                             }
                         }
@@ -130,17 +143,21 @@ namespace ToyForSI.TagHelpers
                         // }
 
                         sbPage.Append("       <li>");
-                        sbPage.AppendFormat("         <a href=\"{0}?page={1}\" aria-label=\"Next\">",
+                        sbPage.AppendFormat("         <a href=\"{0}?page={1}&SortOrder={2}{3}\" aria-label=\"Next\">",
                                             PagerOption.RouteUrl,
-                                            PagerOption.CurrentPage + 1 > totalPage ? PagerOption.CurrentPage : PagerOption.CurrentPage + 1);
+                                            PagerOption.CurrentPage + 1 > totalPage ? PagerOption.CurrentPage : PagerOption.CurrentPage + 1,
+                                            PagerOption.CurrentSort,
+                                            PagerOption.CurrentFilterString);
                         sbPage.Append("               <span aria-hidden=\"true\" class=\"glyphicon glyphicon-triangle-right\"></span>");
                         sbPage.Append("         </a>");
                         sbPage.Append("       </li>");
                         if(totalPage-PagerOption.CurrentPage>2&&totalPage>7)
                         {
-                             sbPage.AppendFormat("       <li><a href=\"{0}?page={1}\" aria-label=\"Previous\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-step-forward\"></span></a></li>",
+                             sbPage.AppendFormat("       <li><a href=\"{0}?page={1}&SortOrder={2}{3}\" aria-label=\"Previous\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-step-forward\"></span></a></li>",
                                                 PagerOption.RouteUrl,
-                                                totalPage);
+                                                totalPage,
+                                                PagerOption.CurrentSort,
+                                                PagerOption.CurrentFilterString);
                         }
                         sbPage.Append("   </ul>");
                         sbPage.Append("</nav>");
@@ -184,5 +201,20 @@ namespace ToyForSI.TagHelpers
         /// 样式 默认 bootstrap样式 1
         /// </summary>
         public int StyleNum { get; set; }
+
+        public string CurrentSort { get; set; }
+
+        public Dictionary<string, string> CurrentFilter { get; set; }
+
+        public string CurrentFilterString {
+            get {
+                string result = "";
+                foreach(KeyValuePair<string,string> kvp in CurrentFilter)
+                {
+                    result += "&" + kvp.Key + "=" + kvp.Value;
+                }
+                return result;
+             }
+        }
     }
 }

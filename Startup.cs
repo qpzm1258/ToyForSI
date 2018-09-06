@@ -81,7 +81,7 @@ namespace ToyForSI
             
             app.UseStaticFiles();
             app.UseAuthentication();
-            seeder.SeedAdminUser();
+           //seeder.SeedAdminUser();
 
             app.UseMvc(routes =>
             {

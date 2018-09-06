@@ -22,17 +22,20 @@
             <hr />
             <div class="form-group">
                 <label asp-for="fromLocation" class="control-label"></label>
-                 <select asp-for="fromLocation" class="form-control" asp-items="ViewBag.fromLocation"></select>
+                 <select asp-for="fromLocation" class="form-control" asp-items="ViewBag.fromLocation">
+                 </select>
                 <span asp-validation-for="fromLocation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="fromDepartmentId" class="control-label"></label>
-                <select asp-for="fromDepartmentId" class="form-control" asp-items="ViewBag.fromDepartmentId"></select>
+                <select asp-for="fromDepartmentId" class="form-control" asp-items="ViewBag.fromDepartmentId">
+                </select>
                 <span asp-validation-for="fromDepartmentId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="fromMemberId" class="control-label"></label>
-                <select asp-for="fromMemberId" class="form-control" asp-items="ViewBag.fromMemberId"></select>
+                <select asp-for="fromMemberId" class="form-control" asp-items="ViewBag.fromMemberId">
+                </select>
                 <span asp-validation-for="fromMemberId" class="text-danger"></span>
             </div>
             <h4>目标</h4>
@@ -44,14 +47,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="toDepartmentId" class="control-label"></label>
-                <select asp-for="toDepartmentId" class="form-control" asp-items="ViewBag.toDepartmentId">
+                <select asp-for="toDepartmentId" class="form-control" asp-items="ViewBag.toDepartmentId" onchange="updateMeberSelect(this.options[this.options.selectedIndex].value);">
                     <option value="">请选择接收部门</option>
                 </select>
                 <span asp-validation-for="toDepartmentId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="toMemberId" class="control-label"></label>
-                <select asp-for="toMemberId" class="form-control" asp-items="ViewBag.toMemberId">
+                <select asp-for="toMemberId" class="form-control" asp-items="ViewBag.toMemberId" id="members">
                     <option value="">请选择接收者</option>
                 </select>
                 <span asp-validation-for="toMemberId" class="text-danger"></span>
@@ -70,6 +73,10 @@
                 <span asp-validation-for="deviceStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">是否配置网络</label>
+                <input name="configNetwork" type="checkbox" value="" />
+            </div>
+            <div class="form-group">
                 <input type="submit" value="移交" class="btn btn-default" />
             </div>
         </form>
@@ -79,6 +86,26 @@
 <div>
     <a asp-action="Index">上一步</a>
 </div>
+
+<script type="text/javascript">
+function updateMeberSelect(v)
+{
+    var url='@Url.Action("getMember")';
+    if(v!="")
+    {
+        url+="?departmentId="+v;
+    }
+    $.get(url, function (data) {
+        console.info(data);
+        $("#members").empty();
+        $("#members").append('<option value="">请选择接收者</option>');
+        $.each(data, function(){
+                    $("#members").append("<option value="+this.memberId+">"+this.name+"</option>");
+                });
+    });
+}
+</script>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -4,17 +4,64 @@
     ViewData["Title"] = "人员列表";
 }
 
-<h2>列表</h2>
+<h2>人员列表</h2>
 
 <p>
     <a asp-action="Create">添加新人员</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
+
+<!--
+    <p>
+        姓名：<input type="text" name="searchName" value="@ViewData["SearchName"]" />
+    </p>
+    <p>
+        科室：<input type="text" name="searchDepartment" value="@ViewData["SearchDepartment"]" />
+    </p>
+    <p>
+        职位：<input type="text" name="searchPosition" value="@ViewData["SearchPosition"]" />
+    </p>
+    <p>
+        <input type="submit" value="搜索" class="btn btn-default" />
+    <a asp-action="Index" class="btn btn-default">清除</a>
+    </p>
+-->
+    <form asp-action="Index" method="get">
+        <table class="rwd-table table">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-searchName="@ViewData["SearchName"]"
+                           asp-route-searchDepartment="@ViewData["SearchDepartment"]"
+                           asp-route-searchPosition="@ViewData["SearchPosition"]"
+                           asp-route-SortOrder="@ViewData["NAME"]">
+                            @Html.DisplayNameFor(model => model.name)
+                        </a>
+                    </th>
+                    <!--
                 <th>
-                    @Html.DisplayNameFor(model => model.name)
+                    @Html.DisplayNameFor(model => model.createTime)
                 </th>
+                -->
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-searchName="@ViewData["SearchName"]"
+                           asp-route-searchDepartment="@ViewData["SearchDepartment"]"
+                           asp-route-searchPosition="@ViewData["SearchPosition"]"
+                           asp-route-SortOrder="@ViewData["DEP"]">
+                            @Html.DisplayNameFor(model => model.department)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-searchName="@ViewData["SearchName"]"
+                           asp-route-searchDepartment="@ViewData["SearchDepartment"]"
+                           asp-route-searchPosition="@ViewData["SearchPosition"]"
+                           asp-route-SortOrder="@ViewData["POS"]">
+                            @Html.DisplayNameFor(model => model.position)
+                        </a>
+                    </th>
+                    <!--
                 <th>
                     @Html.DisplayNameFor(model => model.sex)
                 </th>
@@ -24,48 +71,62 @@
                 <th>
                     @Html.DisplayNameFor(model => model.IDCard)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.createTime)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.position)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sex)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.employeeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDCard)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.createTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.department.departmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.position.positionName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.memberId">编辑</a> |
-                <a asp-action="Details" asp-route-id="@item.memberId">详细</a> |
-                <a asp-action="Delete" asp-route-id="@item.memberId">删除</a>
-            </td>
-        </tr>
+                -->
+
+                    <th></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-th="@Html.DisplayNameFor(model => model.name)"><input type="text" name="searchName" value="@ViewData["SearchName"]" /></td>
+                    <td data-th="@Html.DisplayNameFor(model => model.department)"><input type="text" name="searchDepartment" value="@ViewData["SearchDepartment"]" /></td>
+                    <td data-th="@Html.DisplayNameFor(model => model.position)"><input type="text" name="searchPosition" value="@ViewData["SearchPosition"]" /></td>
+                    <td data-th="操作">
+                        <input type="submit" value="搜索" class="btn btn-default" />
+                        <a asp-action="Index" class="btn btn-default">清除</a>
+                    </td>
+                </tr>
+                @foreach (var item in Model)
+    {
+            <tr>
+                <td data-th="@Html.DisplayNameFor(model => model.name)">
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+
+                <!--
+
+
+    <td>
+        @Html.DisplayFor(modelItem => item.createTime)
+    </td>
+    -->
+                <td data-th="@Html.DisplayNameFor(model => model.department)">
+                    @Html.DisplayFor(modelItem => item.department.departmentName)
+                </td>
+                <td data-th="@Html.DisplayNameFor(model => model.position)">
+                    @Html.DisplayFor(modelItem => item.position.positionName)
+                </td>
+                <!--
+    <td>
+        @Html.DisplayFor(modelItem => item.sex)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.employeeId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IDCard)
+    </td>
+    -->
+
+                <td data-th="操作">
+                    <a asp-action="Edit" asp-route-id="@item.memberId">编辑</a> |
+                    <a asp-action="Details" asp-route-id="@item.memberId">详细</a> |
+                    <a asp-action="Delete" asp-route-id="@item.memberId">删除</a>
+                </td>
+            </tr>
 }
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </form>
+        <pager pager-option="ViewBag.PagerOption as ToyForSI.TagHelpers.MoPagerOption"></pager>
