@@ -27,9 +27,9 @@ namespace ToyForSI.Controllers
         // GET: Member
         public async Task<IActionResult> Index(string SortOrder, string searchName, string searchDepartment, string searchPosition, int? page)
         {
-            ViewData["NAME"] = SortOrder == "NAME" ? "NAME_DES" : "NAME";
-            ViewData["DEP"] = SortOrder == "DEP" ? "DEP_DES" : "DEP";
-            ViewData["POS"] = SortOrder == "POS" ? "POS_DES" : "POS";
+            //ViewData["NAME"] = SortOrder == "NAME" ? "NAME_DES" : "NAME";
+            //ViewData["DEP"] = SortOrder == "DEP" ? "DEP_DES" : "DEP";
+            //ViewData["POS"] = SortOrder == "POS" ? "POS_DES" : "POS";
             var toyForSIContext =await _context.Member.AsTracking()
             .Include(m => m.department).Include(m => m.position).OrderBy(d => d.memberId).ToListAsync();
 
@@ -96,13 +96,16 @@ namespace ToyForSI.Controllers
                     break;
                 default:
                     toyForSIContext = toyForSIContext.OrderBy(d => d.memberId).ToList();
+                    ViewData["NAME"] = "NAME";
+                    ViewData["DEP"] = "DEP";
+                    ViewData["POS"] = "POS";
                     break;
             }
 
             var pageOption = new MoPagerOption
             {
                 CurrentPage = page??1,
-                PageSize = 20,
+                PageSize = 10,
                 Total = toyForSIContext.Count(),
                 RouteUrl = "/Member/Index",
                 CurrentSort=SortOrder,

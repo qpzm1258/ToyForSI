@@ -42,7 +42,9 @@ namespace ToyForSI.Models.Enum
         [Display(Name="维修")]
         Fix=2,
         [Display(Name="报废")]
-        Scrapped=3
+        Scrapped = 3,
+        [Display(Name = "借出")]
+        Borrwed = 4
     };
 
 }

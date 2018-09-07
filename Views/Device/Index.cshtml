@@ -3,60 +3,124 @@
 @{
     ViewData["Title"] = "设备管理";
 }
-
+<script  type = "text/javascript" >
+window.onload = function (){
+     var a=@ViewData["SearchStatus"];
+     document.getElementById("searchStatus")[a+1].selected=true;
+}
+</script >
 <h2>设备列表</h2>
 
 <p>
     <a asp-action="Create">新增设备</a>
 </p>
-<table class="rwd-table table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.siSN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeviceSummary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserDepartment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.inWareHouse)
-            </th>
-            <th>
-                操作
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td data-th="@Html.DisplayNameFor(model => model.siSN)">
-                @Html.DisplayFor(modelItem => item.siSN)
-            </td>
-            <td data-th=" @Html.DisplayNameFor(model => model.DeviceSummary)">
-                @Html.DisplayFor(modelItem => item.DeviceSummary)
-            </td>
-            <td data-th="@Html.DisplayNameFor(model => model.User)">
-                @Html.DisplayFor(modelItem => item.User)
-            </td>
-            <td data-th="@Html.DisplayNameFor(model => model.UserDepartment)">
-                @Html.DisplayFor(modelItem => item.UserDepartment)
-            </td>
-            <td data-th="@Html.DisplayNameFor(model => model.inWareHouse)">
-                @Html.DisplayFor(modelItem => item.historys.LastOrDefault().deviceStatus)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.deviceId">编辑</a> |
-                <a asp-action="Details" asp-route-id="@item.deviceId">详细</a> |
-                <a asp-action="Delete" asp-route-id="@item.deviceId">删除</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<form asp-action="Index" method="get">
+    <table class="rwd-table table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-searchNo="@ViewData["SearchNo"]"
+                       asp-route-searchSummary="@ViewData["SearchSummary"]"
+                       asp-route-searchUser="@ViewData["SearchUser"]"
+                       asp-route-searchDepartment="@ViewData["SearchDepartment"]"
+                       asp-route-searchStatus="@ViewData["SearchStatus"]"
+                       asp-route-SortOrder="@ViewData["COL1"]">
+
+                        @Html.DisplayNameFor(model => model.siSN)
+                     </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-searchNo="@ViewData["SearchNo"]"
+                       asp-route-searchSummary="@ViewData["SearchSummary"]"
+                       asp-route-searchUser="@ViewData["SearchUser"]"
+                       asp-route-searchDepartment="@ViewData["SearchDepartment"]"
+                       asp-route-searchStatus="@ViewData["SearchStatus"]"
+                       asp-route-SortOrder="@ViewData["COL2"]">
+                        @Html.DisplayNameFor(model => model.DeviceSummary)
+                     </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-searchNo="@ViewData["SearchNo"]"
+                       asp-route-searchSummary="@ViewData["SearchSummary"]"
+                       asp-route-searchUser="@ViewData["SearchUser"]"
+                       asp-route-searchDepartment="@ViewData["SearchDepartment"]"
+                       asp-route-searchStatus="@ViewData["SearchStatus"]"
+                       asp-route-SortOrder="@ViewData["COL3"]">
+                        @Html.DisplayNameFor(model => model.User)
+                     </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-searchNo="@ViewData["SearchNo"]"
+                       asp-route-searchSummary="@ViewData["SearchSummary"]"
+                       asp-route-searchUser="@ViewData["SearchUser"]"
+                       asp-route-searchDepartment="@ViewData["SearchDepartment"]"
+                       asp-route-searchStatus="@ViewData["SearchStatus"]"
+                       asp-route-SortOrder="@ViewData["COL4"]">
+                        @Html.DisplayNameFor(model => model.UserDepartment)
+                     </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-searchNo="@ViewData["SearchNo"]"
+                       asp-route-searchSummary="@ViewData["SearchSummary"]"
+                       asp-route-searchUser="@ViewData["SearchUser"]"
+                       asp-route-searchDepartment="@ViewData["SearchDepartment"]"
+                       asp-route-searchStatus="@ViewData["SearchStatus"]"
+                       asp-route-SortOrder="@ViewData["COL5"]">
+                        @Html.DisplayNameFor(model => model.inWareHouse)
+                     </a>
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-th="@Html.DisplayNameFor(model => model.siSN)"><input type="text" name="searchNo" value="@ViewData["SearchNo"]" style="width:110px" /></td>
+                <td data-th=" @Html.DisplayNameFor(model => model.DeviceSummary)"><input type="text" name="searchSummary" value="@ViewData["SearchSummary"]" /></td>
+                <td data-th="@Html.DisplayNameFor(model => model.User)"><input type="text" name="searchUser" value="@ViewData["SearchUser"]" style="width:100px"/></td>
+                <td data-th="@Html.DisplayNameFor(model => model.UserDepartment)"><input type="text" name="searchDepartment" value="@ViewData["SearchDepartment"]" /></td>
+                <td data-th="@Html.DisplayNameFor(model => model.inWareHouse)">
+                    <select id="searchStatus" name="searchStatus" class="form-control" asp-items="Html.GetEnumSelectList<ToyForSI.Models.Enum.DeviceStatus>()" style="width:100px">
+                        <option value="">请选择</option>
+                    </select>
+                </td>
+                <td data-th="操作">
+                    <input type="submit" value="搜索" class="btn btn-default" />
+                    <a asp-action="Index" class="btn btn-default">清除</a>
+                </td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-th="@Html.DisplayNameFor(model => model.siSN)">
+                        @Html.DisplayFor(modelItem => item.siSN)
+                    </td>
+                    <td data-th=" @Html.DisplayNameFor(model => model.DeviceSummary)">
+                        @Html.DisplayFor(modelItem => item.DeviceSummary)
+                    </td>
+                    <td data-th="@Html.DisplayNameFor(model => model.User)">
+                        @Html.DisplayFor(modelItem => item.User)
+                    </td>
+                    <td data-th="@Html.DisplayNameFor(model => model.UserDepartment)">
+                        @Html.DisplayFor(modelItem => item.UserDepartment)
+                    </td>
+                    <td data-th="@Html.DisplayNameFor(model => model.inWareHouse)">
+                        @Html.DisplayFor(modelItem => item.historys.LastOrDefault().deviceStatus)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.deviceId">编辑</a> |
+                        <a asp-action="Details" asp-route-id="@item.deviceId">详细</a> |
+                        <a asp-action="Delete" asp-route-id="@item.deviceId">删除</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
 <pager pager-option="ViewBag.PagerOption as ToyForSI.TagHelpers.MoPagerOption"></pager>

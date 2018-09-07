@@ -23,26 +23,175 @@ namespace ToyForSI.Controllers
         }
 
         // GET: Device
-        public async Task<IActionResult> Index(int? page)
+        public async Task<IActionResult> Index(
+            string SortOrder,
+            string searchNo, 
+            string searchSummary, 
+            string searchUser, 
+            string searchDepartment,
+            string searchStatus,
+            int? page
+            )
         {
-            var toyForSIContext = _context.Device
-            .AsNoTracking();
-            
+            var toyForSIContext = await _context.Device
+            .AsNoTracking().Include(d => d.devModel).ThenInclude(m => m.brand)
+            .Include(d => d.devModel).ThenInclude(m => m.equipmentType)
+            .Include(d => d.historys).ThenInclude(i => i.toMember)
+            .Include(d => d.historys).ThenInclude(i => i.toDepartment).ToListAsync();
+
+
+            Dictionary<string, string> currentFilter = new Dictionary<string, string>();
+
+            if (!string.IsNullOrEmpty(searchNo))
+            {
+                ViewData["SearchNo"] = searchNo;
+                currentFilter.Add("searchNo", searchNo);
+                toyForSIContext = toyForSIContext.Where(d => d.siSN.Contains(searchNo)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(searchSummary))
+            {
+                ViewData["SearchSummary"] = searchSummary;
+                currentFilter.Add("searchSummary", searchSummary);
+                toyForSIContext = toyForSIContext.Where(d => d.DeviceSummary.Contains(searchSummary)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(searchUser))
+            {
+                ViewData["SearchUser"] = searchUser;
+                currentFilter.Add("searchUser", searchUser);
+                toyForSIContext = toyForSIContext.Where(d => d.User.Contains(searchUser)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(searchDepartment))
+            {
+                ViewData["SearchDepartment"] = searchDepartment;
+                currentFilter.Add("searchDepartment", searchDepartment);
+                toyForSIContext = toyForSIContext.Where(d => d.UserDepartment.Contains(searchDepartment)).ToList();
+            }
+            int statusCode;
+            if (int.TryParse(searchStatus, out statusCode))
+            {
+                Models.Enum.DeviceStatus dStatus = (Models.Enum.DeviceStatus)statusCode;
+                ViewData["SearchStatus"] = (int)dStatus;
+                currentFilter.Add("searchStatus", ((int)dStatus).ToString());
+                toyForSIContext = toyForSIContext.Where(d => d.historys.LastOrDefault().deviceStatus.Equals(dStatus)).ToList();
+            }
+
+            switch (SortOrder)
+            {
+                case "COL1":
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.siSN).ToList();
+                    ViewData["COL1"] = "COL1_DES";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "COL5";
+                    break;
+                case "COL1_DES":
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.siSN).ToList();
+                    ViewData["COL1"] = "";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "COL5";
+                    break;
+                case "COL2":
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.DeviceSummary).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "COL2_DES";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "COL5";
+                    break;
+                case "COL2_DES":
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.DeviceSummary).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "COL5";
+                    break;
+                case "COL3":
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.User).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "COL3_DES";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "COL5";
+                    break;
+                case "COL3_DES":
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.User).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "COL5";
+                    break;
+                case "COL4":
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.UserDepartment).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "COL4_DES";
+                    ViewData["COL5"] = "COL5";
+                    break;
+                case "COL4_DES":
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.UserDepartment).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "";
+                    ViewData["COL5"] = "COL5";
+                    break;
+                case "COL5":
+                    toyForSIContext = toyForSIContext.OrderBy(d => d.historys.LastOrDefault().deviceStatus).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "COL5_DES";
+                    break;
+                case "COL5_DES":
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.historys.LastOrDefault().deviceStatus).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "";
+                    break;
+                default:
+                    toyForSIContext = toyForSIContext.OrderByDescending(d => d.deviceId).ToList();
+                    ViewData["COL1"] = "COL1";
+                    ViewData["COL2"] = "COL2";
+                    ViewData["COL3"] = "COL3";
+                    ViewData["COL4"] = "COL4";
+                    ViewData["COL5"] = "COL5";
+                    break;
+            }
+
+
+            //if (dStatus != Models.Enum.DeviceStatus.Unknown)
+            //{
+            //    ViewData["SearchStatus"] = (int)dStatus;
+            //    currentFilter.Add("searchStatus", ((int)dStatus).ToString());
+            //    toyForSIContext = toyForSIContext.Where(d => d.LastHistory.deviceStatus.Equals(dStatus));
+            //}
+
             var pageOption = new MoPagerOption
             {
-                CurrentPage = page??1,
-                PageSize = 20,
-                Total = await toyForSIContext.CountAsync(),
-                RouteUrl = "/Device/Index"
+                CurrentPage = page ?? 1,
+                PageSize = 10,
+                Total = toyForSIContext.Count(),
+                RouteUrl = "/Device/Index",
+                CurrentSort = SortOrder,
+                CurrentFilter = currentFilter
             };
-            toyForSIContext=toyForSIContext.Include(d => d.devModel).ThenInclude(m=>m.brand)
-            .Include(d => d.devModel).ThenInclude(m=>m.equipmentType)
-            .Include(d => d.historys).ThenInclude(i=>i.toMember)
-            .Include(d => d.historys).ThenInclude(i=>i.toDepartment);
+            
 
             //分页参数
             ViewBag.PagerOption = pageOption;
-            return View(await toyForSIContext.OrderByDescending(d=>d.deviceId).Skip((pageOption.CurrentPage - 1) * pageOption.PageSize).Take(pageOption.PageSize).ToListAsync());
+            return View(toyForSIContext.Skip((pageOption.CurrentPage - 1) * pageOption.PageSize).Take(pageOption.PageSize).ToList());
         }
 
         // GET: Device/Details/5

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace ToyForSI.Models
 {
-    [AtLeastOneProperty("toLocation", "toDepartmentId","toMemberId", ErrorMessage="“新所在地”、“接收科室”、“接收者”至少一个不能为空！")]
+    //[AtLeastOneProperty("toLocation", "toDepartmentId","toMemberId", ErrorMessage="“新所在地”、“接收科室”、“接收者”至少一个不能为空！")]
     public class DeviceFlowHistory
     {
         public int deviceFlowHistoryId{get;set;}
