@@ -23,7 +23,7 @@ namespace ToyForSI.Controllers
         // GET: Position
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Position.ToListAsync());
+            return View(await _context.Position.OrderBy(p => p.order).ToListAsync());
         }
 
         // GET: Position/Details/5
@@ -56,7 +56,7 @@ namespace ToyForSI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("positionId,positionName,positionAbstract")] Position position)
+        public async Task<IActionResult> Create([Bind("positionId,positionName,order,positionAbstract")] Position position)
         {
             step=ActionStep.create;
             if (ModelState.IsValid)
@@ -90,7 +90,7 @@ namespace ToyForSI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("positionId,positionName,positionAbstract")] Position position)
+        public async Task<IActionResult> Edit(int id, [Bind("positionId,positionName,order,positionAbstract")] Position position)
         {
             step=ActionStep.edit;
             if (id != position.positionId)

@@ -17,6 +17,25 @@
                 <input asp-for="departmentName" class="form-control" />
                 <span asp-validation-for="departmentName" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="departmentManagerId" class="control-label"></label>
+                <select asp-for="departmentManagerId" class="form-control" asp-items="ViewBag.departmentManagerId">
+                    <option value="">请选择科室负责人</option>
+                </select>
+                <span asp-validation-for="departmentManagerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="departmentLeaderId" class="control-label"></label>
+                <select asp-for="departmentLeaderId" class="form-control" asp-items="ViewBag.departmentLeaderId">
+                    <option value="">请选择科室分管领导</option>
+                </select>
+                <span asp-validation-for="departmentManagerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="order" class="control-label"></label>
+                <input asp-for="order" class="form-control" />
+                <span asp-validation-for="order" class="text-danger"></span>
+            </div>
             @{
                 if (Model.departmentValues != null)
                 {
@@ -24,15 +43,15 @@
                     foreach (var item in Model.departmentValues)
                     {
 
-                    @:<div class="form-group">
-                        <label class="control-label">@item.departmentAttributes.departmentAttributeName</label>
-                        <input asp-for="@Model.departmentValues[idx].departmentValue" class="form-control" />
-                        <input asp-for="@Model.departmentValues[idx].departmentAttributeId" class="form-control" style="display:none" value="@item.departmentAttributeId"/>
-                    @:</div>
-                            idx++;
-                        }
+                        @:<div class="form-group">
+                            <label class="control-label">@item.departmentAttributes.departmentAttributeName</label>
+                            <input asp-for="@Model.departmentValues[idx].departmentValue" class="form-control" />
+                            <input asp-for="@Model.departmentValues[idx].departmentAttributeId" class="form-control" style="display:none" value="@item.departmentAttributeId" />
+                        @:</div>
+                        idx++;
                     }
                 }
+            }
 
             <div class="form-group">
                 <input type="submit" value="新建" class="btn btn-default" />

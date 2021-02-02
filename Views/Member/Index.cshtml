@@ -61,6 +61,12 @@
                             @Html.DisplayNameFor(model => model.position)
                         </a>
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.mobile)
+                    </th>
                     <!--
                 <th>
                     @Html.DisplayNameFor(model => model.sex)
@@ -82,6 +88,8 @@
                     <td data-th="@Html.DisplayNameFor(model => model.name)"><input type="text" name="searchName" value="@ViewData["SearchName"]" /></td>
                     <td data-th="@Html.DisplayNameFor(model => model.department)"><input type="text" name="searchDepartment" value="@ViewData["SearchDepartment"]" /></td>
                     <td data-th="@Html.DisplayNameFor(model => model.position)"><input type="text" name="searchPosition" value="@ViewData["SearchPosition"]" /></td>
+                    <td data-th="@Html.DisplayNameFor(model => model.tel)"></td>
+                    <td data-th="@Html.DisplayNameFor(model => model.mobile)"></td>
                     <td data-th="操作">
                         <input type="submit" value="搜索" class="btn btn-default" />
                         <a asp-action="Index" class="btn btn-default">清除</a>
@@ -106,6 +114,12 @@
                 </td>
                 <td data-th="@Html.DisplayNameFor(model => model.position)">
                     @Html.DisplayFor(modelItem => item.position.positionName)
+                </td>
+                <td data-th="@Html.DisplayNameFor(model => model.tel)">
+                    @Html.DisplayFor(modelItem => item.tel)
+                </td>
+                <td data-th="@Html.DisplayNameFor(model => model.mobile)">
+                    @Html.DisplayFor(modelItem => item.mobile)
                 </td>
                 <!--
     <td>

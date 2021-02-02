@@ -51,12 +51,33 @@
                 <span asp-validation-for="IDCard" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="tel" class="control-label"></label>
+                <input asp-for="tel" class="form-control" />
+                <span asp-validation-for="tel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="mobile" class="control-label"></label>
+                <input asp-for="mobile" class="form-control" />
+                <span asp-validation-for="mobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="createTime" class="control-label"></label>
                 <input asp-for="createTime" class="form-control" readonly="true"/>
                 <span asp-validation-for="createTime" class="text-danger"></span>
             </div>
+              <div class="form-group">
+                <label class="control-label">变更原因</label>
+                <textarea name="reason" class="form-control">
+                </textarea>
+            </div>
+            <div class="form-group" style="display:none">
+                <input name="srcDep" class="form-control" readonly="true" value='@ViewBag.srcDepId'/>
+            </div>
+            <div class="form-group" style="display:none">
+                <input name="srcPos" class="form-control" readonly="true" value='@ViewBag.srcPosId'/>
+            </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="保存" class="btn btn-default" />
             </div>
         </form>
     </div>

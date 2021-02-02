@@ -12,10 +12,17 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.departmentName)
-                </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.departmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.departmentLeader)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.departmentManager)
+            </th>
+            <th>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +30,14 @@
         <tr>
             <td>
                 <a asp-controller="Member" asp-action="Index" asp-route-searchDepartment="@item.departmentName">
-                @Html.DisplayFor(modelItem => item.departmentName)<span class="badge"> @Html.DisplayFor(modelItem => item.memberCount)</span>
+                    @Html.DisplayFor(modelItem => item.departmentName)<span class="badge"> @Html.DisplayFor(modelItem => item.memberCount)</span>
                 </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.departmentLeader.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.departmentManager.name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.departmentId">修改</a> |

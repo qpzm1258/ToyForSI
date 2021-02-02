@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using ToyForSI.Models.Enum;
+using System.Collections.Generic;
 
 namespace ToyForSI.Models
 {
@@ -20,6 +21,14 @@ namespace ToyForSI.Models
         [RegularExpression(@"[a-zA-Z0-9]{6}$",ErrorMessage ="请输入正确的工号，工号由数字或字母组成")]
         [StringLength(6)]
         public string employeeId{get;set;}
+        [Display(Name ="固定电话")]
+        [RegularExpression("([0-9/]+)", ErrorMessage = "只能输入数字或\"/\"")]
+        [MaxLength(20)]
+        public string tel{get;set;}
+        [Display(Name ="手机")]
+        [RegularExpression("([0-9/]+)", ErrorMessage = "只能输入数字或\"/\"")]
+        [MaxLength(20)]
+        public string mobile{get;set;}
         [Display(Name ="部门")]
         public int? departmentId { get; set; }
         [Display(Name="部门")]
@@ -33,5 +42,6 @@ namespace ToyForSI.Models
         public string IDCard { get; set; }
         [Display(Name="创建时间")]
         public DateTime createTime { get; set; }
+        public IEnumerable<PersonnelTransferHistory> historys{get;set;}
     }
 }

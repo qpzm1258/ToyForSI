@@ -52,7 +52,70 @@
         <dd>
             @Html.DisplayFor(model => model.position.positionName)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.tel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.tel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.mobile)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.mobile)
+        </dd>
     </dl>
+    <h4>人员调动信息</h4>
+    <hr />
+    <table class="rwd-table table">
+    <thead>
+        <tr>
+            <th>
+               从（科室）
+            </th>
+            <th>
+                从（职位）
+            </th>
+            <th>
+               到（科室）
+            </th>
+            <th>
+               到（职位）
+            </th>
+            <th>
+                原因
+            </th>
+            <th>
+                调动时间
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.historys) {
+        <tr>
+            <td data-th="从（科室）">
+                @Html.DisplayFor(modelItem => item.formDepartment)
+            </td>
+            <td data-th="从（职位）">
+                @Html.DisplayFor(modelItem => item.formPosition)
+            </td>
+            <td data-th="到（科室）">
+                @Html.DisplayFor(modelItem => item.toDepartment)
+            </td>
+            <td data-th="到（职位）">
+                @Html.DisplayFor(modelItem => item.toPosition)
+            </td>
+            <td data-th="原因">
+                @Html.DisplayFor(modelItem => item.reason)
+            </td>
+            <td data-th="调动时间">
+                @Html.DisplayFor(modelItem => item.flowDateTime)
+            </td>
+        </tr>
+}
+    </tbody>
+    </table>
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.memberId">编辑</a> |

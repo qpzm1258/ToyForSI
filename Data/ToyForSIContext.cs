@@ -29,10 +29,12 @@ namespace ToyForSI.Data
         public DbSet<ToyForSI.Models.DeviceFlowHistory> DeviceFlowHistory { get; set; }
         public DbSet<ToyForSI.Models.ApplicationUser> ApplicationUser { get; set; }
         public DbSet<ToyForSI.Models.NetworkAdepter> NetworkAdepter { get; set; }
+        public DbSet<ToyForSI.Models.PersonnelTransferHistory> PersonnelTransferHistory {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity("ToyForSI.Models.DeviceFlowHistory", b =>
                 {
                     b.HasOne("ToyForSI.Models.Device", "device")
@@ -72,6 +74,20 @@ namespace ToyForSI.Data
                         .HasForeignKey("positionId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
+            modelBuilder.Entity<Position>().Property(b =>b.order).HasDefaultValue(999);
+            modelBuilder.Entity("ToyForSI.Models.Department", b =>
+            {
+                b.HasOne("ToyForSI.Models.Member", "departmentManager")
+                    .WithMany()
+                    .HasForeignKey("departmentManagerId")
+                    .OnDelete(DeleteBehavior.SetNull);
+
+                b.HasOne("ToyForSI.Models.Member", "departmentLeader")
+                    .WithMany()
+                    .HasForeignKey("departmentLeaderId")
+                    .OnDelete(DeleteBehavior.SetNull);
+            });
+            modelBuilder.Entity<Department>().Property(b =>b.order).HasDefaultValue(999);
         }
     }
 }

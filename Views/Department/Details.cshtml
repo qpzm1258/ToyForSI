@@ -16,12 +16,24 @@
         <dd>
             @Html.DisplayFor(model => model.departmentName)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.departmentLeader)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.departmentLeader.name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.departmentManager)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.departmentManager.name)
+        </dd>
         <hr />
         @{
 
             foreach (var attr in ViewBag.DepartmentValue)
             {
-                @:<dt>   
+                @:<dt>
                     @attr.aName
                 @:</dt>
                 @:<dd>

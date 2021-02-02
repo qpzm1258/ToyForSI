@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ToyForSI.Data;
@@ -26,7 +27,11 @@ namespace ToyForSI.Controllers
         public async Task<IActionResult> Index()
         {
             step=ActionStep.index;
-            return View(await _context.Department.Include(m=>m.members).ToListAsync());
+            return View(await _context.Department.Include(m=>m.members)
+                                                 .Include(m=>m.departmentManager)
+                                                 .Include(l=>l.departmentLeader)
+                                                 .OrderBy(d=>d.order)
+                                                 .ToListAsync());
         }
 
         // GET: Department/Details/5
@@ -39,6 +44,8 @@ namespace ToyForSI.Controllers
             }
 
             var department = await _context.Department.Include(d => d.departmentValues)
+                .Include(d => d.departmentLeader)
+                .Include(d => d.departmentManager)
                 .SingleOrDefaultAsync(m => m.departmentId == id);
             if (department == null)
             {
@@ -63,6 +70,8 @@ namespace ToyForSI.Controllers
             Department department=new Department(){
                 departmentValues=values
             };
+            ViewData["departmentManagerId"] = new SelectList(_context.Member.OrderBy(m => m.name), "memberId", "name", department.departmentManagerId);
+            ViewData["departmentLeaderId"] = new SelectList(_context.Member.OrderBy(m => m.name), "memberId", "name", department.departmentLeaderId);
             return View(department);
         }
 
@@ -108,6 +117,8 @@ namespace ToyForSI.Controllers
                 return NotFound();
             }
             GetAttributes(id);
+            ViewData["departmentManagerId"] = new SelectList(_context.Member.OrderBy(m=>m.name), "memberId", "name", department.departmentManagerId);
+            ViewData["departmentLeaderId"] = new SelectList(_context.Member.OrderBy(m => m.name), "memberId", "name", department.departmentLeaderId);
             return View(department);
         }
 
@@ -116,7 +127,7 @@ namespace ToyForSI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("departmentId,departmentName")] Department department, IDictionary<int, string> dictionary)
+        public async Task<IActionResult> Edit(int id, [Bind("departmentId,departmentName,departmentManagerId,departmentLeaderId,order")] Department department, IDictionary<int, string> dictionary)
         {
             step=ActionStep.edit;
             if (id != department.departmentId)
@@ -167,6 +178,8 @@ namespace ToyForSI.Controllers
             }
 
             var department = await _context.Department
+                .Include(d=>d.departmentManager)
+                .Include(d=>d.departmentLeader)
                 .SingleOrDefaultAsync(m => m.departmentId == id);
             if (department == null)
             {

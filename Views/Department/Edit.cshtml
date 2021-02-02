@@ -18,6 +18,25 @@
                 <input asp-for="departmentName" class="form-control" />
                 <span asp-validation-for="departmentName" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="departmentManagerId" class="control-label"></label>
+                <select asp-for="departmentManagerId" class="form-control" asp-items="ViewBag.departmentManagerId">
+                    <option value="">请选择科室负责人</option>
+                </select>
+                <span asp-validation-for="departmentManagerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="departmentLeaderId" class="control-label"></label>
+                <select asp-for="departmentLeaderId" class="form-control" asp-items="ViewBag.departmentLeaderId">
+                    <option value="">请选择科室分管领导</option>
+                </select>
+                <span asp-validation-for="departmentManagerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="order" class="control-label"></label>
+                <input asp-for="order" class="form-control" />
+                <span asp-validation-for="order" class="text-danger"></span>
+            </div>
             @{
                 foreach (var attr in ViewBag.DepartmentValue)
                 {
@@ -26,8 +45,8 @@
                         <label class="control-label">@attr.aName</label>
                         <input name="dictionary[@attr.vId]" value="@attr.value" class="form-control" />
                         <span asp-validation-for="departmentName" class="text-danger"></span>
-                        @:</div>
-                    }
+                    @:</div>
+                }
             }
             <div class="form-group">
                 <input type="submit" value="保存修改" class="btn btn-default" />

@@ -68,7 +68,8 @@ namespace ToyForSI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ToyForSIDbContextSeedData seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env
+        , ToyForSIDbContextSeedData seeder)
         {
             if (env.IsDevelopment())
             {
@@ -78,10 +79,21 @@ namespace ToyForSI
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            /*
+             * Auto Create database 
+             */
+             /*
+            using (var serviceScope=app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context=serviceScope.ServiceProvider.GetRequiredService<ToyForSIContext>();
+                context.Database.Migrate();
+            }
+            */
             
             app.UseStaticFiles();
             app.UseAuthentication();
-           //seeder.SeedAdminUser();
+            //Auto create admin
+            //seeder.SeedAdminUser();
 
             app.UseMvc(routes =>
             {
