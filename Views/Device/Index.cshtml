@@ -75,6 +75,9 @@ window.onload = function (){
                      </a>
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Usage)
+                </th>
+                <th>
                     操作
                 </th>
             </tr>
@@ -90,6 +93,7 @@ window.onload = function (){
                         <option value="">请选择</option>
                     </select>
                 </td>
+                <td data-th="@Html.DisplayNameFor(model => model.Usage)"></td>
                 <td data-th="操作">
                     <input type="submit" value="搜索" class="btn btn-default" />
                     <a asp-action="Index" class="btn btn-default">清除</a>
@@ -112,6 +116,9 @@ window.onload = function (){
                     </td>
                     <td data-th="@Html.DisplayNameFor(model => model.inWareHouse)">
                         @Html.DisplayFor(modelItem => item.historys.LastOrDefault().deviceStatus)
+                    </td>
+                    <td data-th="@Html.DisplayNameFor(model => model.Usage)">
+                        @item.Usage.ToLongDateString()
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.deviceId">编辑</a> |

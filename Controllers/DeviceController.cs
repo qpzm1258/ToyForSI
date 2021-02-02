@@ -216,6 +216,7 @@ namespace ToyForSI.Controllers
             {
                 return NotFound();
             }
+            ViewData["Usage"] = device.Usage.ToLongDateString();
             ViewData["SiSN"] = device.siSN;
             return View(device);
         }

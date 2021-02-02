@@ -14,13 +14,29 @@ namespace ToyForSI.TagHelpers
         {
             var QrcodeContent = context.AllAttributes["content"].Value.ToString();
             var alt = context.AllAttributes["alt"].Value.ToString();
-            var width = 250; // width of the Qr Code   
-            var height = 100; // height of the Qr Code   
+            int width = 150;
+            int height = 30;
+            if(context.AllAttributes.ContainsName("width"))
+            {
+                int.TryParse(context.AllAttributes["width"].Value.ToString(),out width );
+                width=width==0?150:width;
+            }
+            if(context.AllAttributes.ContainsName("height"))
+            {
+                int.TryParse(context.AllAttributes["height"].Value.ToString(),out height );
+                height=height==0?30:height;
+            }
+            
+            
+            //var width = 150; // width of the Qr Code   
+            //var height = 30; // height of the Qr Code   
             //var margin = 0;
             var qrCodeWriter = new ZXing.BarcodeWriterPixelData
             {
                 //Format = ZXing.BarcodeFormat.QR_CODE,
+                //一维码
 				Format = ZXing.BarcodeFormat.CODE_128,
+                //Format = ZXing.BarcodeFormat.QR_CODE,
                 Options = new QrCodeEncodingOptions
                 {
                     Height = height,
@@ -57,6 +73,10 @@ namespace ToyForSI.TagHelpers
                 output.Attributes.Add("height", height);
                 output.Attributes.Add("alt", alt);
                 output.Attributes.Add("src", String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ms.ToArray())));
+                //output.TagName="div";
+                //output.Attributes.Clear();
+                //output.Content.Append("<span style='position: absolute; top: 0; left: 0;'>"+context.AllAttributes["content"].ToString()+"</span>");
+                //output.Content.Append("<img width='"+width+"' height='"+height+"' alt='"+context.AllAttributes["content"].ToString()+"' src='"+String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ms.ToArray()))+"'>");
             }
         }
     }

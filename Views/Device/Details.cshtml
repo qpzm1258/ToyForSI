@@ -9,6 +9,7 @@
 <div>
     <h4>设备详细</h4>
     <hr />
+    <!--startprint-->
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.contractNo)
@@ -35,12 +36,23 @@
             @Html.DisplayFor(model => model.devModel.devModelName)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Usage)
+        </dt>
+        <dd>
+            @ViewData["Usage"]
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.siSN)
         </dt>
         <dd>
-            <qrcode alt="@ViewData["SiSN"]" content="@ViewData["SiSN"]"/>
+            <div>@ViewData["SiSN"]</div>
+            <div style="margin-left: -23px;">
+            <qrcode alt="@ViewData["SiSN"]" content="@ViewData["SiSN"]" />
+            </div>
         </dd>
-
+        <!--endprint-->
+        <dt></dt>
+        <dd><input type=button name='button_export' title='打印' onclick=doPrint(1) value=打印></dd>
     </dl>
     <h4>设备转移历史</h4>
     <hr />

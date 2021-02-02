@@ -25,8 +25,15 @@ namespace ToyForSI.Models
         public DateTime createTime{get;set;}
         [Display(Name="网卡信息")]
         public IEnumerable<NetworkAdepter> networkAdepters{get;set;}
+        [Display(Name = "报废时间")]
+        public DateTime Usage 
+        {
+            get
+            {
+                return createTime.AddYears(devModel.equipmentType.life);
+            }
+        }
         [Display(Name ="局内编号")]
-        
         public String siSN
         {
             get
